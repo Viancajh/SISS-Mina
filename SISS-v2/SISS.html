@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISS-Mina | Servicio Social TecNM Minatitlán</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== PANTALLA LOGIN ===================== -->
+<div id="screen-login">
+    <header class="siss-header">
+        <div class="header-inner">
+            <img src="logo-tecnm.png" alt="TecNM" class="header-logo">
+            <div class="header-text">
+                <h1 class="brand-title">SISS-MINA</h1>
+                <p class="brand-subtitle">Sistema Integral de Seguimiento y Gestión Digital de Servicio Social</p>
+            </div>
+        </div>
+        <div class="header-dots"></div>
+    </header>
+
+    <main class="login-main container-fluid">
+        <div class="row justify-content-center g-0 login-row">
+
+            <!-- ALUMNO -->
+            <div class="col-12 col-md-4">
+                <div class="login-card card-alumno">
+                    <i class="fas fa-user-graduate card-icon"></i>
+                    <h2>Alumno</h2>
+                    <form id="form-alumno" novalidate>
+                        <div class="input-field">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" placeholder="Número de Control" id="alumno-nc" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Contraseña" id="alumno-pass" required>
+                        </div>
+                        <button type="submit" class="btn-login">Iniciar Sesión</button>
+                        <p class="register-link">¿Eres nuevo? <a href="#" id="btn-registro">Crear Cuenta</a></p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ADMIN -->
+            <div class="col-12 col-md-4">
+                <div class="login-card card-admin">
+                    <i class="fas fa-folder-open card-icon"></i>
+                    <h2>Administrativo</h2>
+                    <form id="form-admin" novalidate>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="RFC/Usuario" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn-login btn-login-dark">Iniciar Sesión</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- JEFE DEP -->
+            <div class="col-12 col-md-4">
+                <div class="login-card card-jefe">
+                    <i class="fas fa-stamp card-icon"></i>
+                    <h2>Jefe de Departamento</h2>
+                    <form id="form-jefe" novalidate>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="RFC/Usuario" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn-login">Iniciar Sesión</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- ===================== MODAL REGISTRO ===================== -->
+<div class="modal fade" id="modalRegistro" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content siss-modal">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Crear Cuenta — Alumno</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label">Número de Control <span class="text-danger">*</span></label>
+            <input type="text" class="form-control siss-input" id="reg-nc" placeholder="ej. 22230678" maxlength="10">
+            <div class="invalid-feedback">Número de control inválido.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Nombre Completo <span class="text-danger">*</span></label>
+            <input type="text" class="form-control siss-input" id="reg-nombre" placeholder="Nombre y Apellidos">
+            <div class="invalid-feedback">Ingresa tu nombre completo.</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Correo Institucional <span class="text-danger">*</span></label>
+            <input type="email" class="form-control siss-input" id="reg-correo" placeholder="nc@minatitlan.tecnm.mx">
+            <div class="invalid-feedback">Correo inválido.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Contraseña <span class="text-danger">*</span></label>
+            <input type="password" class="form-control siss-input" id="reg-pass" placeholder="Mín. 4 caracteres">
+            <div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Confirmar Contraseña <span class="text-danger">*</span></label>
+            <input type="password" class="form-control siss-input" id="reg-pass2" placeholder="Repite la contraseña">
+            <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Carrera <span class="text-danger">*</span></label>
+            <select class="form-select siss-input" id="reg-carrera">
+              <option value="">— Selecciona tu carrera —</option>
+              <option>Ingeniería en Sistemas Computacionales</option>
+              <option>Ingeniería en Gestión Empresarial</option>
+              <option>Ingeniería Industrial</option>
+              <option>Ingeniería Química</option>
+              <option>Ingeniería Electrónica</option>
+              <option>Ingeniería Electromecánica</option>
+              <option>Ingeniería Ambiental</option>
+              <option>Licenciatura en Administración</option>
+              <option>Desarrollo de Aplicaciones</option>
+              <option>Ingeniería en Inteligencia Artificial</option>
+            </select>
+            <div class="invalid-feedback">Selecciona una carrera.</div>
+          </div>
+        </div>
+        <p class="small text-muted mt-3 mb-0"><span class="text-danger">*</span> Campos requeridos. Tus datos se guardan localmente en este navegador.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-login btn-login-dark px-4 py-2 rounded" onclick="guardarRegistro()">
+          <i class="fas fa-user-check me-2"></i>Registrarse
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD ALUMNO ===================== -->
+<div id="screen-alumno" class="d-none">
+    <nav class="siss-navbar navbar navbar-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler border-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarAlumno">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="navbar-brand-group">
+                <img src="logo-tecnm.png" alt="TecNM" style="height:36px;">
+                <span class="campus-label">TecNM Campus Minatitlán</span>
+            </div>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <div class="notif-bell position-relative" onclick="toggleNotifications()">
+                    <i class="fas fa-bell fs-5"></i>
+                    <span class="notif-badge" id="notif-count">3</span>
+                </div>
+                <div class="user-avatar" title="Alumno">A</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notificaciones dropdown -->
+    <div class="notif-panel d-none" id="notif-panel">
+        <h6 class="px-3 pt-3 pb-2">Notificaciones</h6>
+        <div class="notif-item unread"><i class="fas fa-calendar-alt text-warning me-2"></i>Reporte 1: cierra en 2 días (9-13 Mar)</div>
+        <div class="notif-item unread"><i class="fas fa-check-circle text-success me-2"></i>Carta de asignación validada</div>
+        <div class="notif-item unread"><i class="fas fa-exclamation-circle text-danger me-2"></i>Actualiza tu plan de trabajo</div>
+        <div class="notif-item"><i class="fas fa-info-circle text-info me-2"></i>Periodo: Enero - Junio 2026</div>
+    </div>
+
+    <!-- Sidebar Offcanvas -->
+    <div class="offcanvas offcanvas-start siss-sidebar" tabindex="-1" id="sidebarAlumno">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white">SISS-Mina</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="sidebar-nav list-unstyled">
+                <li class="active"><i class="fas fa-tachometer-alt me-2"></i>Mi Expediente</li>
+                <li><i class="fas fa-clock me-2"></i>Mis Horas</li>
+                <li><i class="fas fa-calendar me-2"></i>Calendario</li>
+                <li><i class="fas fa-file-download me-2"></i>Formatos</li>
+                <li class="mt-auto" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dashboard-content container-fluid px-3 px-md-5">
+        <h2 class="welcome-title">¡Bienvenido, <span id="alumno-nombre">Alumno</span>! — Periodo Enero-Junio 2026</h2>
+
+        <!-- Barra de progreso -->
+        <div class="progress-section row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="report-card" id="card-r1">
+                    <div class="report-hrs">160 hrs</div>
+                    <div class="report-label">Reporte 1</div>
+                    <div class="report-status" id="status-r1">Pendiente</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="report-card" id="card-r2">
+                    <div class="report-hrs">160 hrs</div>
+                    <div class="report-label">Reporte 2</div>
+                    <div class="report-status" id="status-r2">Bloqueado</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="report-card" id="card-r3">
+                    <div class="report-hrs">180 hrs</div>
+                    <div class="report-label">Reporte 3</div>
+                    <div class="report-status" id="status-r3">Bloqueado</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="report-card completion-card">
+                    <div class="report-hrs" id="pct-completado">0%</div>
+                    <div class="report-label">Completado</div>
+                    <div class="progress mt-2" style="height:6px;">
+                        <div class="progress-bar bg-success" id="progress-bar" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nota informativa de progreso automático -->
+        <div class="nota-progreso-box mb-3">
+            <i class="fas fa-info-circle me-2"></i>
+            <span id="nota-progreso">Tu progreso se actualizará automáticamente cuando el administrador apruebe tus documentos.</span>
+        </div>
+
+        <div class="row g-4">
+            <!-- Expediente -->
+            <div class="col-12 col-lg-8">
+                <div class="siss-card">
+                    <h3 class="section-title"><i class="fas fa-folder-open me-2"></i>Mi Expediente</h3>
+                    <div id="lista-documentos"></div>
+                </div>
+            </div>
+
+            <!-- Sidebar derecho -->
+            <div class="col-12 col-lg-4">
+                <!-- Calendario -->
+                <div class="siss-card mb-4">
+                    <h5 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Calendario Oficial</h5>
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" onclick="calCambiarMes(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="cal-mes-titulo" id="cal-mes-titulo">Marzo 2026</span>
+                        <button class="cal-nav-btn" onclick="calCambiarMes(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div id="mini-calendar"></div>
+                    <div class="calendar-legend mt-2">
+                        <span class="legend-dot entrega"></span> Periodo de entrega de reporte
+                    </div>
+                    <div id="cal-nota-entrega" class="cal-entrega-note" style="display:none;margin-top:8px;"></div>
+                </div>
+                <!-- Semáforo horas -->
+                <div class="siss-card">
+                    <h5 class="section-title"><i class="fas fa-hourglass-half me-2"></i>Estado de Horas</h5>
+                    <div class="semaforo" id="semaforo">
+                        <div class="sem-item sem-rojo active" title="0-159 hrs">
+                            <i class="fas fa-circle"></i> 0–159 hrs
+                        </div>
+                        <div class="sem-item sem-amarillo" title="160-319 hrs">
+                            <i class="fas fa-circle"></i> 160–319 hrs
+                        </div>
+                        <div class="sem-item sem-verde" title="320-500 hrs">
+                            <i class="fas fa-circle"></i> 320–500 hrs
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <small class="text-muted">Horas acumuladas:</small>
+                        <h4 id="horas-display" class="fw-bold">0 / 500 hrs</h4>
+                        <input type="range" class="form-range" min="0" max="500" value="0" id="horas-slider" oninput="updateHoras(this.value)">
+                        <small class="text-muted">← Simula tu progreso</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== DASHBOARD ADMINISTRATIVO ===================== -->
+<div id="screen-admin" class="d-none">
+    <nav class="siss-navbar navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">SISS-Mina <span class="badge bg-warning text-dark ms-2">Admin</span></span>
+            <div class="ms-auto d-flex gap-3 align-items-center">
+                <div class="user-avatar" style="background:var(--gold);">A</div>
+                <button class="btn btn-sm btn-outline-light" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-content container-fluid px-3 px-md-5 pt-4">
+        <h3 class="section-title mb-4"><i class="fas fa-users-cog me-2"></i>Panel Administrativo — Solicitudes</h3>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs siss-tabs mb-4" id="adminTabs">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-alfabetizatec">Alfabetizatec</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-comunidad">Tec en tu Comunidad</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-interno">Tec Interno</button></li>
+            <li class="nav-item"><button class="nav-link text-warning fw-bold" data-bs-toggle="tab" data-bs-target="#tab-bd-alumnos"><i class="fas fa-database me-1"></i>BD Alumnos</button></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab-alfabetizatec">
+                <div class="mb-3 d-flex gap-2 flex-wrap">
+                    <input type="text" class="form-control siss-input" style="max-width:300px" placeholder="🔍 Buscar alumno..." oninput="filtrarTabla(this.value)">
+                    <select class="form-select siss-input" style="max-width:180px" onchange="filtrarEstatus(this.value)">
+                        <option value="">Todos los estatus</option>
+                        <option value="Validado">Validado</option>
+                        <option value="En revisión">En revisión</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table" id="tabla-solicitudes">
+                        <thead>
+                            <tr>
+                                <th>No. Control</th>
+                                <th>Nombre</th>
+                                <th>Documento</th>
+                                <th>Fecha Entrega</th>
+                                <th>Estatus</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-solicitudes"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-comunidad">
+                <div class="mb-3 d-flex gap-2 flex-wrap">
+                    <input type="text" class="form-control siss-input" style="max-width:300px" placeholder="🔍 Buscar alumno..." oninput="filtrarTablaGen('tbody-comunidad', this.value)">
+                    <select class="form-select siss-input" style="max-width:180px" onchange="filtrarEstatusGen('tbody-comunidad', this.value)">
+                        <option value="">Todos los estatus</option>
+                        <option value="Validado">Validado</option>
+                        <option value="En revisión">En revisión</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table">
+                        <thead><tr><th>No. Control</th><th>Nombre</th><th>Documento</th><th>Fecha Entrega</th><th>Estatus</th><th>Acciones</th></tr></thead>
+                        <tbody id="tbody-comunidad"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-interno">
+                <div class="mb-3 d-flex gap-2 flex-wrap">
+                    <input type="text" class="form-control siss-input" style="max-width:300px" placeholder="🔍 Buscar alumno..." oninput="filtrarTablaGen('tbody-interno', this.value)">
+                    <select class="form-select siss-input" style="max-width:180px" onchange="filtrarEstatusGen('tbody-interno', this.value)">
+                        <option value="">Todos los estatus</option>
+                        <option value="Validado">Validado</option>
+                        <option value="En revisión">En revisión</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table">
+                        <thead><tr><th>No. Control</th><th>Nombre</th><th>Documento</th><th>Fecha Entrega</th><th>Estatus</th><th>Acciones</th></tr></thead>
+                        <tbody id="tbody-interno"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-bd-alumnos">
+                <div class="siss-card mb-3 d-flex flex-wrap align-items-center gap-2 justify-content-between">
+                    <div>
+                        <h5 class="section-title mb-0"><i class="fas fa-database me-2"></i>Alumnos Registrados</h5>
+                        <small class="text-muted">Base de datos local del sistema. <span id="bd-total"></span></small>
+                    </div>
+                    <input type="text" class="form-control siss-input" style="max-width:260px" placeholder="🔍 Buscar por nombre o No. Control..." oninput="filtrarBD(this.value)">
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table" id="tabla-bd">
+                        <thead>
+                            <tr>
+                                <th>No. Control</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Carrera</th>
+                                <th>Registro</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-bd"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalRechazo" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content siss-modal">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-times-circle text-danger me-2"></i>Motivo del Rechazo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control siss-input" rows="4" id="rechazo-texto" placeholder="Describe el motivo del rechazo..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btn-confirmar-rechazo">Enviar Rechazo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD JEFE ===================== -->
+<div id="screen-jefe" class="d-none">
+    <nav class="siss-navbar navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">SISS-Mina <span class="badge ms-2" style="background:var(--gold);color:#1b396a">Jefe Dep.</span></span>
+            <div class="ms-auto d-flex gap-3 align-items-center">
+                <div class="user-avatar" style="background:#7c3aed;">J</div>
+                <button class="btn btn-sm btn-outline-light" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-content container-fluid px-3 px-md-5 pt-4">
+        <h3 class="section-title mb-1"><i class="fas fa-stamp me-2"></i>Panel del Jefe de Departamento</h3>
+        <p class="text-muted mb-4">Autorización final de documentos</p>
+
+        <div class="row g-4">
+            <!-- Lista espera -->
+            <div class="col-12 col-md-5">
+                <div class="siss-card">
+                    <h5 class="section-title"><i class="fas fa-list-check me-2"></i>Lista de Espera — Alumnos Validados</h5>
+                    <p class="text-muted small">Documentos aprobados por administración, pendientes de firma</p>
+                    <div id="lista-espera-jefe"></div>
+                </div>
+            </div>
+            <!-- Visualizador -->
+            <div class="col-12 col-md-7">
+                <div class="siss-card">
+                    <h5 class="section-title"><i class="fas fa-file-signature me-2"></i>Visualizador — Firma Digital</h5>
+                    <div id="doc-preview" class="doc-preview-box">
+                        <div class="doc-preview-placeholder">
+                            <i class="fas fa-file-alt fa-3x text-muted mb-3 d-block"></i>
+                            Selecciona un documento de la lista para previsualizar
+                        </div>
+                    </div>
+                    <div id="firma-panel" class="d-none mt-3">
+                        <div class="row align-items-center g-3">
+                            <div class="col-12 col-sm-6">
+                                <label class="form-label small text-muted">Firma Digital Adjunta</label>
+                                <div class="firma-pad" id="firma-display">
+                                    <canvas id="firma-canvas" width="260" height="70"></canvas>
+                                    <button class="btn btn-sm btn-link text-muted mt-1" onclick="clearFirma()">Limpiar</button>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 text-center">
+                                <label class="form-label small text-muted">Código QR Generado</label>
+                                <div id="qr-display" class="qr-placeholder">
+                                    <i class="fas fa-qrcode fa-3x"></i>
+                                    <div class="small mt-1">Se generará al firmar</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-firmar w-100 mt-4" id="btn-firmar" onclick="firmarDocumento()">
+                            <i class="fas fa-signature me-2"></i>Firmar y Sellar Digitalmente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast notificación -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+    <div id="siss-toast" class="toast align-items-center border-0 text-white" role="alert">
+        <div class="d-flex">
+            <div class="toast-body" id="toast-msg"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="script.js"></script>
+</body>
+</html>
