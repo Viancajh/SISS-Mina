@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISS-Mina | Servicio Social TecNM Minatitlán</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --blue-dark:  #1b396a;
+    --blue-mid:   #2a4f90;
+    --blue-light: #3b6cc7;
+    --gold:       #b38e5d;
+    --gold-light: #d4a96a;
+    --gray-bg:    #f0f2f5;
+    --white:      #ffffff;
+    --text-dark:  #1a1a2e;
+    --text-muted: #6c757d;
+    --success:    #28a745;
+    --danger:     #dc3545;
+    --warning:    #ffc107;
+}
+*{box-sizing:border-box;}
+body{font-family:'Barlow',sans-serif;background:var(--gray-bg);margin:0;padding:0;color:var(--text-dark);}
+
+/* HEADER */
+.siss-header{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 100%);color:white;padding:28px 5%;text-align:center;border-bottom:4px solid var(--gold);position:relative;overflow:hidden;}
+.siss-header::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.header-inner{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.header-logo{width:72px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));}
+.brand-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;letter-spacing:8px;margin:0;color:white;}
+.brand-subtitle{font-size:clamp(0.75rem,2vw,0.95rem);opacity:0.85;letter-spacing:1px;margin:0;}
+
+/* LOGIN */
+.login-main{padding:0;min-height:calc(100vh - 180px);}
+.login-row{min-height:calc(100vh - 180px);}
+.login-card{padding:48px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;min-height:420px;transition:transform 0.2s ease;}
+.login-card:hover{transform:translateY(-4px);}
+.card-alumno{background:linear-gradient(160deg,var(--blue-dark) 0%,#0f2447 100%);color:white;}
+.card-admin{background:#e8eaed;color:var(--text-dark);}
+.card-admin h2{color:var(--blue-dark);}
+.card-jefe{background:linear-gradient(160deg,var(--gold) 0%,#8a6438 100%);color:white;}
+.login-card h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;margin-bottom:20px;letter-spacing:1px;}
+.card-icon{font-size:56px;margin-bottom:24px;opacity:0.9;}
+.input-field{background:rgba(255,255,255,0.95);border-radius:8px;display:flex;align-items:center;padding:12px 16px;margin-bottom:14px;width:260px;max-width:100%;box-shadow:0 2px 6px rgba(0,0,0,0.1);transition:box-shadow 0.2s;}
+.input-field:focus-within{box-shadow:0 0 0 3px rgba(179,142,93,0.4);}
+.input-field i{color:#888;margin-right:10px;font-size:0.9rem;}
+.input-field input,.input-field select{border:none;outline:none;background:transparent;width:100%;font-family:'Barlow',sans-serif;font-size:0.95rem;color:var(--text-dark);}
+.btn-login{width:260px;max-width:100%;padding:12px;border-radius:8px;border:2px solid white;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:transparent;color:white;transition:all 0.25s;margin-bottom:12px;}
+.btn-login:hover{background:white;color:var(--blue-dark);}
+.btn-login-dark{background:var(--blue-dark);border-color:var(--blue-dark);color:white;}
+.btn-login-dark:hover{background:var(--blue-mid);border-color:var(--blue-mid);color:white;}
+.register-link{font-size:0.82rem;margin-top:8px;opacity:0.85;}
+.register-link a{color:var(--gold-light);text-decoration:underline;cursor:pointer;}
+
+/* NAVBAR */
+.siss-navbar{background:linear-gradient(90deg,var(--blue-dark) 0%,var(--blue-mid) 100%);border-bottom:3px solid var(--gold);padding:12px 24px;position:sticky;top:0;z-index:1000;}
+.navbar-brand-group{display:flex;align-items:center;gap:12px;}
+.campus-label{color:white;font-weight:600;font-size:0.9rem;border-left:1px solid rgba(255,255,255,0.4);padding-left:12px;}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;cursor:pointer;}
+
+/* NOTIF */
+.notif-bell{cursor:pointer;color:white;}
+.notif-badge{position:absolute;top:-6px;right:-8px;background:var(--danger);color:white;border-radius:50%;font-size:0.65rem;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.notif-panel{position:fixed;top:60px;right:16px;width:320px;background:white;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.15);z-index:1050;overflow:hidden;border-top:3px solid var(--gold);}
+.notif-item{padding:12px 16px;font-size:0.85rem;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background 0.15s;}
+.notif-item:hover{background:#f8f9fa;}
+.notif-item.unread{background:#fff8f0;font-weight:600;}
+
+/* SIDEBAR */
+.siss-sidebar{background:var(--blue-dark);}
+.sidebar-nav li{padding:14px 16px;color:rgba(255,255,255,0.75);border-radius:8px;cursor:pointer;transition:all 0.2s;margin-bottom:4px;font-weight:500;}
+.sidebar-nav li:hover,.sidebar-nav li.active{background:rgba(255,255,255,0.12);color:white;}
+
+/* DASHBOARD */
+.dashboard-content{padding-top:30px;padding-bottom:60px;}
+.welcome-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:700;color:var(--blue-dark);margin-bottom:24px;}
+.welcome-title span{color:var(--gold);}
+
+/* REPORT CARDS */
+.progress-section{}
+.report-card{background:white;border-radius:14px;padding:18px 10px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.07);border-top:4px solid var(--blue-light);transition:all 0.3s;}
+.report-card.done{border-top-color:var(--success);}
+.report-card.active{border-top-color:var(--warning);}
+.report-hrs{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--blue-dark);}
+.report-label{font-size:0.78rem;font-weight:600;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin:4px 0;}
+.report-status{display:inline-block;background:#e9ecef;color:#6c757d;font-size:0.7rem;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
+.completion-card{border-top-color:var(--gold);}
+
+/* SISS CARD */
+.siss-card{background:white;border-radius:16px;padding:24px;box-shadow:0 2px 14px rgba(0,0,0,0.07);margin-bottom:0;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;color:var(--blue-dark);letter-spacing:0.5px;margin-bottom:18px;}
+
+/* DOCUMENTOS */
+.doc-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8f9fa;border-radius:10px;margin-bottom:8px;border-left:4px solid transparent;transition:border-color 0.2s;}
+.doc-item:hover{border-left-color:var(--blue-light);}
+.doc-item.doc-aprobado{border-left-color:var(--success);background:#f0fff4;}
+.doc-item.doc-rechazado{border-left-color:var(--danger);background:#fff5f5;}
+.doc-name{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:600;flex:1;flex-wrap:wrap;}
+.doc-name i{color:var(--blue-mid);font-size:1rem;}
+.doc-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.btn-dl{background:var(--blue-dark);color:white;border:none;padding:6px 13px;border-radius:6px;font-size:0.78rem;cursor:pointer;font-weight:600;transition:opacity 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.btn-dl:hover{opacity:0.85;color:white;}
+.btn-up{background:var(--gold);color:white;border:none;padding:6px 13px;border-radius:6px;font-size:0.78rem;cursor:pointer;font-weight:600;transition:opacity 0.2s;}
+.btn-up:hover{opacity:0.85;}
+.doc-check{color:#dee2e6;font-size:1.2rem;transition:color 0.3s;}
+.doc-check.checked{color:var(--success);}
+.doc-estado-badge{display:inline-flex;align-items:center;font-size:0.7rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;}
+.doc-estado-subido{background:#fff3cd;color:#856404;}
+.doc-estado-revision{background:#cff4fc;color:#055160;}
+.doc-estado-aprobado{background:#d4edda;color:#155724;}
+.doc-estado-rechazado{background:#f8d7da;color:#721c24;}
+
+/* CALENDAR */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;background:#f0f4ff;border-radius:10px;padding:6px 10px;}
+.cal-mes-titulo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--blue-dark);letter-spacing:0.5px;text-transform:uppercase;}
+.cal-nav-btn{background:white;border:1.5px solid #d0daf5;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--blue-dark);font-size:0.8rem;transition:all 0.2s;}
+.cal-nav-btn:hover{background:var(--blue-dark);color:white;border-color:var(--blue-dark);}
+.cal-nav-btn:disabled{opacity:0.3;cursor:default;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.cal-day-header{text-align:center;font-size:0.65rem;font-weight:700;color:var(--text-muted);padding:4px 0;text-transform:uppercase;}
+.cal-day{text-align:center;padding:5px 2px;font-size:0.8rem;border-radius:6px;cursor:default;transition:background 0.15s;}
+.cal-day.today{background:var(--blue-dark);color:white;font-weight:700;}
+.cal-day.entrega-periodo{background:rgba(179,142,93,0.25);color:#7a5c2e;font-weight:600;}
+.cal-day.today.entrega-periodo{background:var(--gold);color:white;}
+.calendar-legend{font-size:0.7rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;}
+.legend-dot{width:10px;height:10px;border-radius:50%;}
+.legend-dot.entrega{background:rgba(179,142,93,0.5);}
+.cal-entrega-note{background:rgba(179,142,93,0.12);border-left:3px solid var(--gold);border-radius:4px;padding:5px 10px;font-size:0.72rem;color:#7a5c2e;font-weight:600;margin-top:6px;}
+
+/* NOTA PROGRESO */
+.nota-progreso-box{background:#eef4ff;border:1px solid #c5d8ff;border-left:4px solid var(--blue-dark);border-radius:8px;padding:10px 16px;font-size:0.85rem;color:var(--blue-dark);display:flex;align-items:flex-start;gap:8px;margin-bottom:16px;}
+
+/* BADGE SUBIDO */
+.badge-subido{display:inline-flex;align-items:center;background:#d4edda;color:#155724;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px;}
+
+/* ADMIN TABLA */
+.siss-table{width:100%;border-collapse:separate;border-spacing:0;}
+.siss-table thead th{background:var(--blue-dark);color:white;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.5px;padding:12px 16px;border:none;}
+.siss-table thead th:first-child{border-radius:10px 0 0 0;}
+.siss-table thead th:last-child{border-radius:0 10px 0 0;}
+.siss-table tbody tr{transition:background 0.15s;}
+.siss-table tbody tr:hover{background:#eef2ff;}
+.siss-table td{padding:12px 16px;vertical-align:middle;border-bottom:1px solid #f0f0f0;}
+.badge-status{padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;}
+.badge-validado{background:#d4edda;color:#155724;}
+.badge-revision{background:#fff3cd;color:#856404;}
+.badge-rechazado{background:#f8d7da;color:#721c24;}
+.badge-jefe{background:#e8d5ff;color:#4b1d9e;}
+.btn-aprobar{background:var(--success);color:white;border:none;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;font-weight:600;transition:opacity 0.2s;}
+.btn-rechazar{background:var(--danger);color:white;border:none;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;font-weight:600;transition:opacity 0.2s;}
+.btn-ver-doc{background:var(--blue-mid);color:white;border:none;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;font-weight:600;transition:opacity 0.2s;}
+.btn-aprobar:hover,.btn-rechazar:hover,.btn-ver-doc:hover{opacity:0.85;}
+.btn-firmar-jefe{width:100%;} 
+
+/* TABS */
+.siss-tabs .nav-link{color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.5px;border-radius:8px 8px 0 0;}
+.siss-tabs .nav-link.active{background:var(--blue-dark);color:white;border-color:var(--blue-dark);}
+
+/* JEFE */
+.lista-espera-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#f8f9fa;border-radius:10px;margin-bottom:10px;cursor:pointer;transition:background 0.2s,border-left 0.2s;border-left:4px solid transparent;}
+.lista-espera-item:hover{background:#eef2ff;border-left-color:var(--blue-dark);}
+.lista-espera-item.selected{background:#dce7ff;border-left-color:var(--blue-dark);}
+.lista-espera-item .doc-info{font-size:0.88rem;font-weight:600;}
+.lista-espera-item .doc-type{font-size:0.75rem;color:var(--text-muted);}
+.doc-preview-box{border:2px dashed #dee2e6;border-radius:12px;min-height:200px;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:#fafafa;}
+.doc-preview-placeholder{color:var(--text-muted);}
+.doc-preview-content{background:white;border-radius:8px;padding:28px;width:100%;border:1px solid #eee;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.firma-pad{background:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:10px;text-align:center;}
+.qr-placeholder{width:100px;height:100px;margin:0 auto;background:#f0f2f5;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.7rem;}
+.btn-firmar{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border:none;padding:14px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(27,57,106,0.3);width:100%;}
+.btn-firmar:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,57,106,0.35);}
+
+/* MODAL */
+.siss-modal{border-radius:16px;overflow:hidden;border:none;}
+.siss-modal .modal-header{background:var(--blue-dark);color:white;border-bottom:none;}
+.siss-modal .modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;}
+.siss-input{border:1.5px solid #dee2e6;border-radius:8px;font-family:'Barlow',sans-serif;transition:border-color 0.2s;}
+.siss-input:focus{border-color:var(--blue-dark);box-shadow:0 0 0 3px rgba(27,57,106,0.1);}
+
+/* TOAST */
+#siss-toast.bg-success{background:var(--success)!important;}
+#siss-toast.bg-danger{background:var(--danger)!important;}
+#siss-toast.bg-info{background:var(--blue-mid)!important;}
+#siss-toast.bg-warning{background:var(--warning)!important;color:#333!important;}
+
+/* FLUJO DOCS badge */
+.flujo-badge{display:inline-flex;align-items:center;gap:4px;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:6px;}
+.flujo-pendiente{background:#fff3cd;color:#856404;}
+.flujo-admin{background:#cff4fc;color:#055160;}
+.flujo-jefe{background:#e8d5ff;color:#4b1d9e;}
+.flujo-aprobado{background:#d4edda;color:#155724;}
+.flujo-rechazado{background:#f8d7da;color:#721c24;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .siss-header{padding:18px 4%;}
+    .header-logo{width:52px;}
+    .login-main{min-height:auto;}
+    .login-row{min-height:auto;flex-direction:column!important;}
+    .login-card{min-height:auto;padding:30px 20px;border-radius:0;border-bottom:2px solid rgba(255,255,255,0.1);}
+    .campus-label{display:none;}
+    .dashboard-content{padding-top:16px;padding-bottom:40px;}
+    .welcome-title{font-size:1rem;margin-bottom:16px;}
+    .doc-item{flex-direction:column;align-items:flex-start;gap:10px;padding:10px 14px;}
+    .doc-actions{display:flex;flex-wrap:wrap;gap:6px;width:100%;}
+    .btn-dl,.btn-up{padding:6px 10px;font-size:0.75rem;flex:1;text-align:center;}
+    .siss-table{font-size:0.78rem;}
+    .siss-table td,.siss-table th{padding:8px 8px;}
+    .siss-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .siss-tabs .nav-link{white-space:nowrap;font-size:0.82rem;padding:8px 12px;}
+    .btn-aprobar,.btn-rechazar{display:block;width:100%;margin-bottom:4px;}
+    .notif-panel{width:calc(100vw - 32px);right:8px;}
+    .report-hrs{font-size:1.2rem;}
+    .report-card{padding:14px 8px;}
+}
+@media(max-width:480px){
+    .brand-title{letter-spacing:4px;font-size:2rem;}
+    .brand-subtitle{font-size:0.7rem;}
+    .input-field{width:100%;}
+    .btn-login{width:100%;}
+    .progress-section .col-6{flex:0 0 50%;max-width:50%;}
+    .siss-modal .modal-body{padding:12px;}
+    .siss-modal .modal-footer{flex-wrap:wrap;gap:8px;}
+    .siss-modal .modal-footer .btn-login{width:100%;}
+    .siss-navbar{padding:10px 12px;}
+    .navbar-brand{font-size:0.95rem!important;}
+}
+@media(max-width:480px){
+    .table-responsive table,.table-responsive thead,.table-responsive tbody,.table-responsive th,.table-responsive td,.table-responsive tr{display:block;}
+    .table-responsive thead tr{display:none;}
+    .table-responsive tbody tr{background:white;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:10px;}
+    .table-responsive td{padding:5px 8px;border:none;font-size:0.82rem;display:flex;justify-content:space-between;align-items:center;}
+    .table-responsive td::before{content:attr(data-label);font-weight:700;color:var(--blue-dark);font-size:0.75rem;min-width:90px;}
+    .btn-aprobar,.btn-rechazar{width:auto;margin:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== PANTALLA LOGIN ===================== -->
+<div id="screen-login">
+    <header class="siss-header">
+        <div class="header-inner">
+            <img src="logo-tecnm.png" alt="TecNM" class="header-logo">
+            <div class="header-text">
+                <h1 class="brand-title">SISS-MINA</h1>
+                <p class="brand-subtitle">Sistema Integral de Seguimiento y Gestión Digital de Servicio Social</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="login-main container-fluid">
+        <div class="row justify-content-center g-0 login-row">
+            <!-- ALUMNO -->
+            <div class="col-12 col-md-4">
+                <div class="login-card card-alumno">
+                    <i class="fas fa-user-graduate card-icon"></i>
+                    <h2>Alumno</h2>
+                    <form id="form-alumno" novalidate>
+                        <div class="input-field"><i class="fas fa-id-card"></i><input type="text" placeholder="Número de Control" id="alumno-nc" required></div>
+                        <div class="input-field"><i class="fas fa-lock"></i><input type="password" placeholder="Contraseña" id="alumno-pass" required></div>
+                        <button type="submit" class="btn-login">Iniciar Sesión</button>
+                        <p class="register-link">¿Eres nuevo? <a id="btn-registro">Crear Cuenta</a></p>
+                    </form>
+                </div>
+            </div>
+            <!-- ADMIN -->
+            <div class="col-12 col-md-4">
+                <div class="login-card card-admin">
+                    <i class="fas fa-folder-open card-icon" style="color:var(--blue-dark)"></i>
+                    <h2>Administrativo</h2>
+                    <form id="form-admin" novalidate>
+                        <div class="input-field"><i class="fas fa-user"></i><input type="text" placeholder="Usuario" id="admin-user" required></div>
+                        <div class="input-field"><i class="fas fa-lock"></i><input type="password" placeholder="Contraseña" id="admin-pass" required></div>
+                        <button type="submit" class="btn-login btn-login-dark">Iniciar Sesión</button>
+                        <p class="register-link" style="color:var(--text-muted)">¿No tienes cuenta? <a id="btn-registro-admin" style="color:var(--blue-dark);cursor:pointer;">Crear Cuenta</a></p>
+                    </form>
+                </div>
+            </div>
+            <!-- JEFE -->
+            <div class="col-12 col-md-4">
+                <div class="login-card card-jefe">
+                    <i class="fas fa-stamp card-icon"></i>
+                    <h2>Jefe de Departamento</h2>
+                    <form id="form-jefe" novalidate>
+                        <div class="input-field"><i class="fas fa-user"></i><input type="text" placeholder="Usuario" id="jefe-user" required></div>
+                        <div class="input-field"><i class="fas fa-lock"></i><input type="password" placeholder="Contraseña" id="jefe-pass" required></div>
+                        <button type="submit" class="btn-login">Iniciar Sesión</button>
+                        <p class="register-link">¿No tienes cuenta? <a id="btn-registro-jefe" style="color:var(--gold-light);cursor:pointer;">Crear Cuenta</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- ===================== MODAL REGISTRO ALUMNO ===================== -->
+<div class="modal fade" id="modalRegistro" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content siss-modal">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Crear Cuenta — Alumno</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12 col-md-6"><label class="form-label">Número de Control <span class="text-danger">*</span></label><input type="text" class="form-control siss-input" id="reg-nc" placeholder="ej. 22230678" maxlength="10"><div class="invalid-feedback">Número de control inválido.</div></div>
+          <div class="col-12 col-md-6"><label class="form-label">Nombre Completo <span class="text-danger">*</span></label><input type="text" class="form-control siss-input" id="reg-nombre" placeholder="Nombre y Apellidos"><div class="invalid-feedback">Ingresa tu nombre completo.</div></div>
+          <div class="col-12"><label class="form-label">Correo Institucional <span class="text-danger">*</span></label><input type="email" class="form-control siss-input" id="reg-correo" placeholder="nc@minatitlan.tecnm.mx"><div class="invalid-feedback">Correo inválido.</div></div>
+          <div class="col-12 col-md-6"><label class="form-label">Contraseña <span class="text-danger">*</span></label><input type="password" class="form-control siss-input" id="reg-pass" placeholder="Mín. 4 caracteres"><div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres.</div></div>
+          <div class="col-12 col-md-6"><label class="form-label">Confirmar Contraseña <span class="text-danger">*</span></label><input type="password" class="form-control siss-input" id="reg-pass2" placeholder="Repite la contraseña"><div class="invalid-feedback">Las contraseñas no coinciden.</div></div>
+          <div class="col-12 col-md-6"><label class="form-label">Carrera <span class="text-danger">*</span></label>
+            <select class="form-select siss-input" id="reg-carrera">
+              <option value="">— Selecciona tu carrera —</option>
+              <option>Ingeniería en Sistemas Computacionales</option>
+              <option>Ingeniería en Gestión Empresarial</option>
+              <option>Ingeniería Industrial</option>
+              <option>Ingeniería Química</option>
+              <option>Ingeniería Electrónica</option>
+              <option>Ingeniería Electromecánica</option>
+              <option>Ingeniería Ambiental</option>
+              <option>Licenciatura en Administración</option>
+              <option>Desarrollo de Aplicaciones</option>
+              <option>Ingeniería en Inteligencia Artificial</option>
+            </select><div class="invalid-feedback">Selecciona una carrera.</div>
+          </div>
+          <div class="col-12 col-md-6"><label class="form-label">Área de Servicio Social <span class="text-danger">*</span></label>
+            <select class="form-select siss-input" id="reg-area">
+              <option value="">— Selecciona tu área —</option>
+              <option value="tec_interno">Tec Interno</option>
+              <option value="tec_comunidad">Tec en tu Comunidad</option>
+              <option value="alfabetizatec">AlfabetizaTec</option>
+            </select><div class="invalid-feedback">Selecciona un área de servicio.</div>
+          </div>
+        </div>
+        <p class="small text-muted mt-3 mb-0"><span class="text-danger">*</span> Campos requeridos.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-login btn-login-dark px-4 py-2 rounded" onclick="guardarRegistro()"><i class="fas fa-user-check me-2"></i>Registrarse</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL REGISTRO ADMIN / JEFE ===================== -->
+<div class="modal fade" id="modalRegistroStaff" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content siss-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staff-modal-title"><i class="fas fa-user-shield me-2"></i>Crear Cuenta — Administrativo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning small py-2"><i class="fas fa-shield-alt me-1"></i> Necesitas un <strong>código de acceso</strong> para crear esta cuenta.</div>
+        <div class="mb-3"><label class="form-label">Nombre Completo <span class="text-danger">*</span></label><input type="text" class="form-control siss-input" id="staff-nombre" placeholder="Nombre completo"></div>
+        <div class="mb-3"><label class="form-label">Usuario <span class="text-danger">*</span></label><input type="text" class="form-control siss-input" id="staff-user" placeholder="Nombre de usuario"></div>
+        <div class="mb-3"><label class="form-label">Contraseña <span class="text-danger">*</span></label><input type="password" class="form-control siss-input" id="staff-pass" placeholder="Mín. 4 caracteres"></div>
+        <div class="mb-3"><label class="form-label">Código de Acceso <span class="text-danger">*</span></label><input type="password" class="form-control siss-input" id="staff-codigo" placeholder="Código institucional"></div>
+        <div class="mb-3 d-none" id="staff-area-grupo"><label class="form-label">Área que Coordina <span class="text-danger">*</span></label>
+          <select class="form-select siss-input" id="staff-area">
+            <option value="">— Selecciona el área —</option>
+            <option value="tec_interno">🏫 Tec Interno</option>
+            <option value="tec_comunidad">🌍 Tec en tu Comunidad</option>
+            <option value="alfabetizatec">📚 AlfabetizaTec</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-login btn-login-dark px-4 py-2 rounded" onclick="guardarRegistroStaff()"><i class="fas fa-user-check me-2"></i>Registrarse</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD ALUMNO ===================== -->
+<div id="screen-alumno" class="d-none">
+    <nav class="siss-navbar navbar navbar-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler border-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarAlumno"><i class="fas fa-bars"></i></button>
+            <div class="navbar-brand-group">
+                <img src="logo-tecnm.png" alt="TecNM" style="height:36px;">
+                <span class="campus-label">TecNM Campus Minatitlán</span>
+            </div>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <div class="notif-bell position-relative" onclick="toggleNotifications()">
+                    <i class="fas fa-bell fs-5"></i>
+                    <span class="notif-badge" id="notif-count">1</span>
+                </div>
+                <div class="user-avatar" id="av-alumno" title="Alumno">A</div>
+            </div>
+        </div>
+    </nav>
+    <div class="notif-panel d-none" id="notif-panel">
+        <h6 class="px-3 pt-3 pb-2">Notificaciones</h6>
+        <div class="notif-item unread"><i class="fas fa-info-circle text-info me-2"></i>Periodo activo: Enero - Junio 2026</div>
+    </div>
+    <div class="offcanvas offcanvas-start siss-sidebar" tabindex="-1" id="sidebarAlumno">
+        <div class="offcanvas-header"><h5 class="offcanvas-title text-white">SISS-Mina</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button></div>
+        <div class="offcanvas-body">
+            <ul class="sidebar-nav list-unstyled">
+                <li class="active"><i class="fas fa-tachometer-alt me-2"></i>Mi Expediente</li>
+                <li onclick="abrirBuzon()"><i class="fas fa-comments me-2"></i>Buzón / Asistente</li>
+                <li onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dashboard-content container-fluid px-3 px-md-5">
+        <h2 class="welcome-title">¡Bienvenido, <span id="alumno-nombre">Alumno</span>! — Periodo Enero-Junio 2026</h2>
+        <div id="alumno-area-banner" class="d-none mb-3 px-3 py-2 rounded-3 d-flex align-items-center gap-2" style="background:#eef4ff;border-left:4px solid var(--blue-dark);font-size:0.9rem;color:var(--blue-dark);">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Área de Servicio: <strong id="alumno-area-label">—</strong></span>
+        </div>
+
+        <!-- Cards de reporte -->
+        <div class="progress-section row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="report-card" id="card-r1">
+                    <div class="report-hrs">160 hrs</div>
+                    <div class="report-label">Reporte 1</div>
+                    <div class="report-status" id="status-r1">Pendiente</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="report-card" id="card-r2">
+                    <div class="report-hrs">160 hrs</div>
+                    <div class="report-label">Reporte 2</div>
+                    <div class="report-status" id="status-r2">Bloqueado</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="report-card" id="card-r3">
+                    <div class="report-hrs">180 hrs</div>
+                    <div class="report-label">Reporte 3</div>
+                    <div class="report-status" id="status-r3">Bloqueado</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="report-card completion-card">
+                    <div class="report-hrs" id="pct-completado">0%</div>
+                    <div class="report-label">Completado</div>
+                    <div class="progress mt-2" style="height:6px;"><div class="progress-bar bg-success" id="progress-bar" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nota-progreso-box"><i class="fas fa-info-circle me-2"></i><span id="nota-progreso">Tu progreso se actualiza cuando el administrador aprueba tus documentos.</span></div>
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-8">
+                <div class="siss-card">
+                    <h3 class="section-title"><i class="fas fa-folder-open me-2"></i>Mi Expediente</h3>
+                    <div id="lista-documentos"></div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="siss-card">
+                    <h5 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Calendario Oficial</h5>
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" onclick="calCambiarMes(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="cal-mes-titulo" id="cal-mes-titulo">Abril 2026</span>
+                        <button class="cal-nav-btn" onclick="calCambiarMes(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div id="mini-calendar"></div>
+                    <div class="calendar-legend mt-2"><span class="legend-dot entrega"></span> Periodo de entrega de reporte</div>
+                    <div id="cal-nota-entrega" class="cal-entrega-note" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== MODAL VER DOCUMENTO (alumno sube PDF) ===================== -->
+<div class="modal fade" id="modalVerDoc" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content siss-modal">
+      <div class="modal-header"><h5 class="modal-title" id="ver-doc-titulo"><i class="fas fa-file-pdf me-2"></i>Estado del Documento</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body" id="ver-doc-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD ADMINISTRATIVO ===================== -->
+<div id="screen-admin" class="d-none">
+    <nav class="siss-navbar navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">SISS-Mina <span class="badge bg-warning text-dark ms-2">Admin</span></span>
+            <div class="ms-auto d-flex gap-3 align-items-center">
+                <span id="admin-nombre-nav" class="text-white small"></span>
+                <div class="user-avatar" style="background:var(--gold);">A</div>
+                <button class="btn btn-sm btn-outline-light" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </nav>
+    <div class="dashboard-content container-fluid px-3 px-md-5 pt-4">
+        <h3 class="section-title mb-4"><i class="fas fa-users-cog me-2"></i>Panel Administrativo — Documentos Recibidos</h3>
+        <ul class="nav nav-tabs siss-tabs mb-4" id="adminTabs">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-tec-interno">🏫 Tec Interno</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-tec-comunidad">🌍 Tec en tu Comunidad</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-alfabetizatec">📚 AlfabetizaTec</button></li>
+            <li class="nav-item"><button class="nav-link text-warning fw-bold" data-bs-toggle="tab" data-bs-target="#tab-bd-alumnos"><i class="fas fa-database me-1"></i>BD Alumnos</button></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab-tec-interno">
+                <div class="mb-3 d-flex gap-2 flex-wrap">
+                    <input type="text" class="form-control siss-input" style="max-width:300px" placeholder="🔍 Buscar alumno..." oninput="filtrarTablaArea('tec_interno', this.value)">
+                    <select class="form-select siss-input" style="max-width:200px" onchange="filtrarEstatusArea('tec_interno', this.value)">
+                        <option value="">Todos los estatus</option>
+                        <option value="En revisión">En revisión</option>
+                        <option value="Aprobado Admin">Aprobado (Admin)</option>
+                        <option value="Rechazado">Rechazado</option>
+                        <option value="Aprobado Jefe">Aprobado (Jefe)</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table" id="tabla-tec-interno">
+                        <thead><tr><th>No. Control</th><th>Alumno</th><th>Documento</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
+                        <tbody id="tbody-tec-interno"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-tec-comunidad">
+                <div class="mb-3 d-flex gap-2 flex-wrap">
+                    <input type="text" class="form-control siss-input" style="max-width:300px" placeholder="🔍 Buscar alumno..." oninput="filtrarTablaArea('tec_comunidad', this.value)">
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table" id="tabla-tec-comunidad">
+                        <thead><tr><th>No. Control</th><th>Alumno</th><th>Documento</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
+                        <tbody id="tbody-tec-comunidad"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-alfabetizatec">
+                <div class="mb-3 d-flex gap-2 flex-wrap">
+                    <input type="text" class="form-control siss-input" style="max-width:300px" placeholder="🔍 Buscar alumno..." oninput="filtrarTablaArea('alfabetizatec', this.value)">
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table" id="tabla-alfabetizatec">
+                        <thead><tr><th>No. Control</th><th>Alumno</th><th>Documento</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
+                        <tbody id="tbody-alfabetizatec"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-bd-alumnos">
+                <div class="siss-card mb-3 d-flex flex-wrap align-items-center gap-2 justify-content-between">
+                    <div><h5 class="section-title mb-0"><i class="fas fa-database me-2"></i>Alumnos Registrados</h5><small class="text-muted" id="bd-total"></small></div>
+                    <input type="text" class="form-control siss-input" style="max-width:260px" placeholder="🔍 Buscar..." oninput="filtrarBD(this.value)">
+                </div>
+                <div class="table-responsive">
+                    <table class="table siss-table"><thead><tr><th>No. Control</th><th>Nombre</th><th>Correo</th><th>Carrera</th><th>Área</th><th>Registro</th></tr></thead><tbody id="tbody-bd"></tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Rechazo Admin -->
+<div class="modal fade" id="modalRechazo" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content siss-modal">
+      <div class="modal-header"><h5 class="modal-title"><i class="fas fa-times-circle text-danger me-2"></i>Motivo del Rechazo</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><textarea class="form-control siss-input" rows="4" id="rechazo-texto" placeholder="Describe el motivo del rechazo..."></textarea></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btn-confirmar-rechazo">Enviar Rechazo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ver Doc Admin -->
+<div class="modal fade" id="modalVerDocAdmin" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content siss-modal">
+      <div class="modal-header"><h5 class="modal-title" id="admin-doc-title"><i class="fas fa-file-pdf me-2"></i>Documento del Alumno</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body" id="admin-doc-body"></div>
+      <div class="modal-footer" id="admin-doc-footer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD JEFE ===================== -->
+<div id="screen-jefe" class="d-none">
+    <nav class="siss-navbar navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">SISS-Mina <span class="badge ms-2" style="background:var(--gold);color:#1b396a">Jefe Dep.</span></span>
+            <div class="ms-auto d-flex gap-3 align-items-center">
+                <span id="jefe-area-badge" class="badge" style="background:rgba(255,255,255,0.2);color:white;font-size:0.75rem;"></span>
+                <span id="jefe-nombre-nav" class="text-white small"></span>
+                <div class="user-avatar" style="background:#7c3aed;">J</div>
+                <button class="btn btn-sm btn-outline-light" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </nav>
+    <div class="dashboard-content container-fluid px-3 px-md-5 pt-4">
+        <h3 class="section-title mb-1"><i class="fas fa-stamp me-2"></i>Panel del Jefe de Departamento</h3>
+        <p class="text-muted mb-3">Autorización final — documentos aprobados por administración · <strong id="jefe-area-titulo" class="text-primary"></strong></p>
+
+        <!-- Tabs: Pendientes / Aprobados / Rechazados -->
+        <ul class="nav nav-tabs siss-tabs mb-3" id="jefeTabs">
+            <li class="nav-item"><button class="nav-link active" onclick="cambiarTabJefe('pendientes',this)"><i class="fas fa-clock me-1"></i>Pendientes <span class="badge bg-warning text-dark ms-1" id="cnt-pendientes-jefe" style="font-size:0.7rem;">0</span></button></li>
+            <li class="nav-item"><button class="nav-link" onclick="cambiarTabJefe('aprobados',this)"><i class="fas fa-check-double me-1"></i>Aprobados <span class="badge bg-success ms-1" id="cnt-aprobados-jefe" style="font-size:0.7rem;">0</span></button></li>
+            <li class="nav-item"><button class="nav-link" onclick="cambiarTabJefe('rechazados',this)"><i class="fas fa-times me-1"></i>Rechazados <span class="badge bg-danger ms-1" id="cnt-rechazados-jefe" style="font-size:0.7rem;">0</span></button></li>
+        </ul>
+
+        <div class="row g-4">
+            <!-- Lista izquierda -->
+            <div class="col-12 col-md-4">
+                <div class="siss-card h-100">
+                    <h5 class="section-title" id="jefe-lista-titulo"><i class="fas fa-list-check me-2"></i>Pendientes de Firma</h5>
+                    <p class="text-muted small" id="jefe-lista-sub">Documentos pre-aprobados por administración</p>
+                    <div id="lista-espera-jefe"></div>
+                </div>
+            </div>
+            <!-- Visualizador derecha — ocupa más espacio y hace scroll interno -->
+            <div class="col-12 col-md-8">
+                <div class="siss-card">
+                    <h5 class="section-title"><i class="fas fa-file-signature me-2"></i>Visualizador del Documento</h5>
+
+                    <!-- Zona scrollable de previsualización -->
+                    <div id="doc-preview" style="border:2px dashed #dee2e6;border-radius:12px;min-height:340px;max-height:620px;overflow-y:auto;background:#fafafa;">
+                        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height:340px;color:var(--text-muted);">
+                            <i class="fas fa-file-alt fa-3x mb-3"></i>
+                            <span>Selecciona un documento de la lista</span>
+                        </div>
+                    </div>
+
+                    <!-- Botones Aprobar / Rechazar — sólo en tab pendientes -->
+                    <div id="jefe-acciones-panel" class="d-none mt-3">
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn-rechazar px-4 py-2" id="btn-rechazar-jefe" onclick="abrirRechazoJefe()" style="border-radius:8px;font-size:0.9rem;">
+                                <i class="fas fa-times me-2"></i>Rechazar
+                            </button>
+                            <button class="btn-aprobar flex-fill py-2" id="btn-aprobar-jefe" onclick="abrirFirmaAprobacion()" style="border-radius:8px;font-size:0.95rem;font-weight:700;">
+                                <i class="fas fa-check-double me-2"></i>Aprobar y Firmar Documento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Firma del Jefe -->
+<div class="modal fade" id="modalFirmaJefe" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content siss-modal">
+      <div class="modal-header" style="background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));">
+        <h5 class="modal-title"><i class="fas fa-signature me-2"></i>Firma Digital del Jefe</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Si ya tiene firma guardada, la muestra y permite usar o cambiar -->
+        <div id="firma-guardada-panel" class="d-none">
+          <p class="small text-muted mb-2">Tu firma guardada:</p>
+          <div style="background:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:8px;text-align:center;margin-bottom:12px;">
+            <img id="firma-guardada-img" src="" alt="Firma guardada" style="max-width:260px;max-height:70px;">
+          </div>
+          <div class="d-flex gap-2 mb-3">
+            <button class="btn btn-success flex-fill fw-bold" onclick="usarFirmaGuardada()"><i class="fas fa-check me-1"></i>Usar esta firma</button>
+            <button class="btn btn-outline-secondary" onclick="mostrarNuevaFirma()"><i class="fas fa-edit me-1"></i>Cambiar firma</button>
+          </div>
+        </div>
+        <!-- Si NO tiene firma guardada, muestra el canvas -->
+        <div id="firma-nueva-panel">
+          <p class="small text-muted mb-1">Dibuja tu firma aquí (se guardará para futuras aprobaciones):</p>
+          <div class="firma-pad mb-2">
+            <canvas id="firma-canvas" width="380" height="90" style="width:100%;cursor:crosshair;"></canvas>
+            <button class="btn btn-sm btn-link text-muted mt-1" onclick="clearFirma()"><i class="fas fa-eraser me-1"></i>Limpiar</button>
+          </div>
+        </div>
+        <div class="alert alert-info small py-2 mb-0"><i class="fas fa-info-circle me-1"></i>Al aprobar, el documento quedará sellado con tu firma y código QR de verificación.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-firmar" id="btn-confirmar-firma-jefe" onclick="confirmarFirmaYAprobar()" style="padding:10px 28px;border-radius:8px;font-size:1rem;">
+          <i class="fas fa-stamp me-2"></i>Firmar y Aprobar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Rechazo Jefe -->
+<div class="modal fade" id="modalRechazoJefe" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content siss-modal">
+      <div class="modal-header"><h5 class="modal-title"><i class="fas fa-times-circle text-danger me-2"></i>Motivo de Rechazo (Jefe)</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><textarea class="form-control siss-input" rows="4" id="rechazo-jefe-texto" placeholder="Describe el motivo del rechazo..."></textarea></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" onclick="confirmarRechazoJefe()">Enviar Rechazo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL BUZÓN / ASISTENTE VIRTUAL ===================== -->
+<div class="modal fade" id="modalBuzon" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content siss-modal">
+      <div class="modal-header" style="background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));">
+        <h5 class="modal-title"><i class="fas fa-robot me-2"></i>Asistente Virtual SISS-Mina</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0" style="height:480px;display:flex;flex-direction:column;">
+        <div id="chat-messages" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:#f8f9fa;">
+          <div class="d-flex gap-2 align-items-start">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-robot text-white" style="font-size:0.8rem;"></i></div>
+            <div style="background:white;border-radius:12px 12px 12px 0;padding:12px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);max-width:85%;font-size:0.88rem;">
+              ¡Hola! Soy el asistente virtual de <strong>SISS-Mina</strong>. Puedo ayudarte con dudas sobre tu servicio social, documentos requeridos, plazos de entrega, o cualquier pregunta relacionada con el proceso. ¿En qué te puedo ayudar? 😊
+            </div>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid #dee2e6;background:white;display:flex;gap-10px;">
+          <div class="d-flex gap-2 w-100">
+            <input type="text" id="chat-input" class="form-control siss-input" placeholder="Escribe tu pregunta aquí..." style="flex:1;" onkeydown="if(event.key==='Enter')enviarMensajeChat()">
+            <button onclick="enviarMensajeChat()" style="background:var(--blue-dark);color:white;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;font-weight:600;white-space:nowrap;"><i class="fas fa-paper-plane me-1"></i>Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+    <div id="siss-toast" class="toast align-items-center border-0 text-white" role="alert">
+        <div class="d-flex"><div class="toast-body" id="toast-msg"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ====================================================
+   SISS-MINA v4 — JavaScript Final
+   TecNM Campus Minatitlán
+   ==================================================== */
+
+/* ===================== BASE DE DATOS LOCAL ===================== */
+var DB_ALUMNOS = 'siss_alumnos_v4';
+var DB_ADMIN   = 'siss_admin_v4';
+var DB_JEFE    = 'siss_jefe_v4';
+var DB_DOCS    = 'siss_docs_v4'; // documentos subidos por alumnos
+
+function dbGet(key)        { try { return JSON.parse(localStorage.getItem(key)) || []; } catch(e){ return []; } }
+function dbSet(key, val)   { localStorage.setItem(key, JSON.stringify(val)); }
+function dbGetObj(key)     { try { return JSON.parse(localStorage.getItem(key)) || {}; } catch(e){ return {}; } }
+function dbSetObj(key,val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+/* ---- ALUMNOS ---- */
+function getAlumnos()  { return dbGet(DB_ALUMNOS); }
+function setAlumnos(a) { dbSet(DB_ALUMNOS, a); }
+function findAlumno(nc){ return getAlumnos().find(function(a){ return a.nc === nc; }) || null; }
+function loginAlumno(nc, pass) { var a = findAlumno(nc); return (a && a.pass === pass) ? a : null; }
+
+function registrarAlumno(data) {
+    var arr = getAlumnos();
+    if (arr.find(function(a){ return a.nc === data.nc; })) return {ok:false,msg:'Ese número de control ya está registrado.'};
+    if (arr.find(function(a){ return a.correo === data.correo; })) return {ok:false,msg:'Ese correo ya está en uso.'};
+    data.fechaRegistro = new Date().toLocaleDateString('es-MX');
+    arr.push(data);
+    setAlumnos(arr);
+    return {ok:true,msg:'Cuenta creada.'};
+}
+
+/* Precargar alumnos demo */
+(function(){ if(getAlumnos().length===0){ setAlumnos([
+    {nc:'22230678',nombre:'Ana Ramírez',correo:'22230678@minatitlan.tecnm.mx',pass:'1234',carrera:'Ingeniería en Sistemas Computacionales',area:'tec_interno',fechaRegistro:'01/02/2026'},
+    {nc:'22232323',nombre:'Carlos Gómez',correo:'22232323@minatitlan.tecnm.mx',pass:'1234',carrera:'Ingeniería Industrial',area:'tec_comunidad',fechaRegistro:'01/02/2026'},
+]); } })();
+
+/* ---- ADMIN ---- */
+function getAdmins()  { return dbGet(DB_ADMIN); }
+function setAdmins(a) { dbSet(DB_ADMIN, a); }
+function loginAdmin(user,pass){ return getAdmins().find(function(a){ return a.user===user && a.pass===pass; }) || null; }
+function registrarAdmin(nombre,user,pass,codigo) {
+    if(codigo !== 'admin123') return {ok:false,msg:'Código de acceso incorrecto.'};
+    var arr = getAdmins();
+    if(arr.find(function(a){ return a.user===user; })) return {ok:false,msg:'Ese usuario ya existe.'};
+    arr.push({nombre:nombre,user:user,pass:pass});
+    setAdmins(arr);
+    return {ok:true,msg:'Cuenta administrativa creada.'};
+}
+/* Admin demo */
+(function(){ if(getAdmins().length===0){ setAdmins([{nombre:'Admin Sistema',user:'admin',pass:'admin'}]); } })();
+
+/* ---- JEFE ---- */
+function getJefes()   { return dbGet(DB_JEFE); }
+function setJefes(a)  { dbSet(DB_JEFE, a); }
+function loginJefe(user,pass){ return getJefes().find(function(j){ return j.user===user && j.pass===pass; }) || null; }
+function registrarJefe(nombre,user,pass,codigo,area) {
+    if(codigo !== 'jefe123') return {ok:false,msg:'Código de acceso incorrecto.'};
+    var arr = getJefes();
+    if(arr.find(function(j){ return j.user===user; })) return {ok:false,msg:'Ese usuario ya existe.'};
+    arr.push({nombre:nombre,user:user,pass:pass,area:area||''});
+    setJefes(arr);
+    return {ok:true,msg:'Cuenta de jefe creada.'};
+}
+/* Jefe demo */
+(function(){ if(getJefes().length===0){ setJefes([
+    {nombre:'Juan Hernandez Hernandez',user:'jefe',pass:'jefe',area:'tec_interno'},
+    {nombre:'María González López',user:'jefe2',pass:'jefe',area:'tec_comunidad'},
+    {nombre:'Pedro Sánchez Ruiz',user:'jefe3',pass:'jefe',area:'alfabetizatec'},
+]); } })();
+
+/* ---- DOCUMENTOS SUBIDOS ---- */
+// Estructura: { "22230678": { "1": {nombre,estado,motivoRechazo,fechaSubida,blob}, ... }, ... }
+function getDocsAlumno(nc) {
+    var all = dbGetObj(DB_DOCS);
+    return all[nc] || {};
+}
+function setDocAlumno(nc, docId, docData) {
+    var all = dbGetObj(DB_DOCS);
+    if(!all[nc]) all[nc] = {};
+    all[nc][docId] = docData;
+    dbSetObj(DB_DOCS, all);
+}
+function getAllDocs() { return dbGetObj(DB_DOCS); }
+
+/* ===================== CATÁLOGO DE DOCUMENTOS ===================== */
+// Archivos descargables (nombres reales del zip)
+var ARCHIVO_DESCARGA = {
+    1:  'TecNM-VI-PO-001 DATOS DEL ALUMNO 1.docx',
+    2:  'TecNM-VI-PO-002  CARTA ASIGNACION.doc',
+    3:  'TecNM-VI-PO-003 TARJETA CONTROL.doc',
+    4:  'TecNM-VI-PO-004 CARTA DE COMPROMISO.doc',
+    5:  'TecNM-VI-PO-005 SOLICITUD.docx',
+    6:  'TecNM-VI-PO-006 PLAN DE TRABAJO.docx',
+    7:  'TecNM-VI-PO-002-04-REPORTE-BIMESTRAL (1).docx',
+    8:  'TecNM-VI-PO-002-04-REPORTE-BIMESTRAL (1).docx',
+    9:  'TecNM-VI-PO-002-04-REPORTE-BIMESTRAL (1).docx',
+    10: 'TecNM-VI-PO-002-10-EVALUACION-DE-ACTIVIDADES-POR-EL-PRESTADOR (1).docx',
+    11: 'TecNM-VI-PO-002-A02-CARTA-DE-TERMINACION-DE-SERVICIO-SOCIAL.docx',
+};
+
+var DOC_LISTA = [
+    {id:1,  nombre:'Datos del alumno'},
+    {id:2,  nombre:'Carta de asignación'},
+    {id:3,  nombre:'Tarjeta de control'},
+    {id:4,  nombre:'Carta de compromiso'},
+    {id:5,  nombre:'Solicitud'},
+    {id:6,  nombre:'Plan de trabajo'},
+    {id:7,  nombre:'Reporte 1 (160 hrs)'},
+    {id:8,  nombre:'Reporte 2 (160 hrs)'},
+    {id:9,  nombre:'Reporte 3 (180 hrs)'},
+    {id:10, nombre:'Evaluación de actividades'},
+    {id:11, nombre:'Carta de terminación'},
+];
+
+/* ===================== UTILIDADES ===================== */
+function showScreen(id) {
+    ['screen-login','screen-alumno','screen-admin','screen-jefe'].forEach(function(s){
+        var el = document.getElementById(s);
+        if(el) el.classList.add('d-none');
+    });
+    var t = document.getElementById(id);
+    if(t) t.classList.remove('d-none');
+}
+
+function showToast(msg, type) {
+    type = type || 'info';
+    var toast = document.getElementById('siss-toast');
+    var msgEl = document.getElementById('toast-msg');
+    if(!toast||!msgEl) return;
+    toast.className = 'toast align-items-center border-0 text-white bg-'+type;
+    msgEl.textContent = msg;
+    bootstrap.Toast.getOrCreateInstance(toast,{delay:4000}).show();
+}
+
+function logout() { showScreen('screen-login'); showToast('Sesión cerrada.','info'); }
+
+var SESSION_NC = null; // alumno actual
+
+/* ===================== LOGIN ===================== */
+document.getElementById('form-alumno').addEventListener('submit', function(e){
+    e.preventDefault();
+    var nc   = document.getElementById('alumno-nc').value.trim();
+    var pass = document.getElementById('alumno-pass').value;
+    if(!nc||!pass){ showToast('Ingresa número de control y contraseña.','danger'); return; }
+    var alumno = loginAlumno(nc, pass);
+    if(!alumno){ showToast('Número de control o contraseña incorrectos.','danger'); return; }
+    SESSION_NC = nc;
+    document.getElementById('alumno-nombre').textContent = alumno.nombre || nc;
+    var av = document.getElementById('av-alumno');
+    if(av) av.textContent = (alumno.nombre||nc).charAt(0).toUpperCase();
+    // Mostrar área de servicio
+    var areaNombres = {tec_interno:'Tec Interno 🏫', tec_comunidad:'Tec en tu Comunidad 🌍', alfabetizatec:'AlfabetizaTec 📚'};
+    var areaBanner = document.getElementById('alumno-area-banner');
+    var areaLabel  = document.getElementById('alumno-area-label');
+    if(alumno.area && areaBanner && areaLabel){
+        areaLabel.textContent = areaNombres[alumno.area] || alumno.area;
+        areaBanner.classList.remove('d-none');
+    } else if(areaBanner){ areaBanner.classList.add('d-none'); }
+    showScreen('screen-alumno');
+    renderDocumentos();
+    renderCalendarioCompleto();
+    actualizarProgreso();
+    showToast('¡Bienvenido, '+(alumno.nombre||nc)+'!','success');
+});
+
+document.getElementById('form-admin').addEventListener('submit', function(e){
+    e.preventDefault();
+    var user = document.getElementById('admin-user').value.trim();
+    var pass = document.getElementById('admin-pass').value;
+    if(!user||!pass){ showToast('Completa usuario y contraseña.','danger'); return; }
+    var admin = loginAdmin(user, pass);
+    if(!admin){ showToast('Usuario o contraseña incorrectos.','danger'); return; }
+    document.getElementById('admin-nombre-nav').textContent = admin.nombre || user;
+    showScreen('screen-admin');
+    renderTablasArea();
+    renderBD();
+    showToast('Acceso como Administrativo.','success');
+});
+
+var SESSION_JEFE_AREA = null; // área del jefe logueado
+
+document.getElementById('form-jefe').addEventListener('submit', function(e){
+    e.preventDefault();
+    var user = document.getElementById('jefe-user').value.trim();
+    var pass = document.getElementById('jefe-pass').value;
+    if(!user||!pass){ showToast('Completa usuario y contraseña.','danger'); return; }
+    var jefe = loginJefe(user, pass);
+    if(!jefe){ showToast('Usuario o contraseña incorrectos.','danger'); return; }
+    SESSION_JEFE_AREA = jefe.area || '';
+    document.getElementById('jefe-nombre-nav').textContent = jefe.nombre || user;
+    var areaNombres = {tec_interno:'🏫 Tec Interno', tec_comunidad:'🌍 Tec en tu Comunidad', alfabetizatec:'📚 AlfabetizaTec'};
+    var areaLabel = areaNombres[SESSION_JEFE_AREA] || SESSION_JEFE_AREA;
+    document.getElementById('jefe-area-badge').textContent = areaLabel;
+    document.getElementById('jefe-area-titulo').textContent = areaLabel;
+    showScreen('screen-jefe');
+    jefeTabActual = 'pendientes';
+    actualizarContadoresJefe();
+    renderListaJefe();
+    showToast('Acceso como Jefe de Departamento — '+areaLabel,'success');
+});
+
+/* ===================== REGISTRO ALUMNO ===================== */
+document.getElementById('btn-registro').addEventListener('click', function(e){
+    e.preventDefault();
+    limpiarErroresRegistro();
+    new bootstrap.Modal(document.getElementById('modalRegistro')).show();
+});
+
+function guardarRegistro() {
+    limpiarErroresRegistro();
+    var nc      = document.getElementById('reg-nc').value.trim();
+    var nombre  = document.getElementById('reg-nombre').value.trim();
+    var correo  = document.getElementById('reg-correo').value.trim();
+    var pass    = document.getElementById('reg-pass').value;
+    var pass2   = document.getElementById('reg-pass2').value;
+    var carrera = document.getElementById('reg-carrera').value;
+    var area    = document.getElementById('reg-area').value;
+    var errores = [];
+    if(!nc||nc.length<7) errores.push({campo:'reg-nc',msg:'Número de control inválido (mín. 7 dígitos).'});
+    if(!nombre||nombre.length<5) errores.push({campo:'reg-nombre',msg:'Ingresa tu nombre completo.'});
+    if(!correo||!correo.includes('@')) errores.push({campo:'reg-correo',msg:'Correo inválido.'});
+    if(!pass||pass.length<4) errores.push({campo:'reg-pass',msg:'La contraseña debe tener al menos 4 caracteres.'});
+    if(pass!==pass2) errores.push({campo:'reg-pass2',msg:'Las contraseñas no coinciden.'});
+    if(!carrera) errores.push({campo:'reg-carrera',msg:'Selecciona una carrera.'});
+    if(!area) errores.push({campo:'reg-area',msg:'Selecciona un área de servicio.'});
+    if(errores.length>0){ errores.forEach(function(e){ var el=document.getElementById(e.campo); if(el){el.classList.add('is-invalid'); var fb=el.nextElementSibling; if(fb&&fb.classList.contains('invalid-feedback')) fb.textContent=e.msg;} }); return; }
+    var res = registrarAlumno({nc:nc,nombre:nombre,correo:correo,pass:pass,carrera:carrera,area:area});
+    if(!res.ok){ showToast(res.msg,'danger'); return; }
+    bootstrap.Modal.getInstance(document.getElementById('modalRegistro')).hide();
+    showToast('✅ Cuenta creada. Ya puedes iniciar sesión.','success');
+}
+
+function limpiarErroresRegistro() {
+    ['reg-nc','reg-nombre','reg-correo','reg-pass','reg-pass2','reg-carrera','reg-area'].forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove('is-invalid'); });
+}
+
+/* ===================== REGISTRO ADMIN / JEFE ===================== */
+var tipoStaffRegistro = 'admin';
+
+document.getElementById('btn-registro-admin').addEventListener('click', function(){
+    tipoStaffRegistro = 'admin';
+    document.getElementById('staff-modal-title').innerHTML = '<i class="fas fa-user-shield me-2"></i>Crear Cuenta — Administrativo';
+    document.getElementById('staff-area-grupo').classList.add('d-none');
+    limpiarStaff();
+    new bootstrap.Modal(document.getElementById('modalRegistroStaff')).show();
+});
+
+document.getElementById('btn-registro-jefe').addEventListener('click', function(){
+    tipoStaffRegistro = 'jefe';
+    document.getElementById('staff-modal-title').innerHTML = '<i class="fas fa-stamp me-2"></i>Crear Cuenta — Jefe de Departamento';
+    document.getElementById('staff-area-grupo').classList.remove('d-none');
+    limpiarStaff();
+    new bootstrap.Modal(document.getElementById('modalRegistroStaff')).show();
+});
+
+function limpiarStaff() {
+    ['staff-nombre','staff-user','staff-pass','staff-codigo','staff-area'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+}
+
+function guardarRegistroStaff() {
+    var nombre = document.getElementById('staff-nombre').value.trim();
+    var user   = document.getElementById('staff-user').value.trim();
+    var pass   = document.getElementById('staff-pass').value;
+    var codigo = document.getElementById('staff-codigo').value.trim();
+    if(!nombre||!user||!pass||!codigo){ showToast('Completa todos los campos.','danger'); return; }
+    if(pass.length<4){ showToast('La contraseña debe tener al menos 4 caracteres.','danger'); return; }
+    var res;
+    if(tipoStaffRegistro === 'admin') {
+        res = registrarAdmin(nombre,user,pass,codigo);
+    } else {
+        var area = document.getElementById('staff-area').value;
+        if(!area){ showToast('Selecciona el área que coordinas.','danger'); return; }
+        res = registrarJefe(nombre,user,pass,codigo,area);
+    }
+    if(!res.ok){ showToast(res.msg,'danger'); return; }
+    bootstrap.Modal.getInstance(document.getElementById('modalRegistroStaff')).hide();
+    showToast('✅ '+res.msg+' Ya puedes iniciar sesión.','success');
+}
+
+/* ===================== DOCUMENTOS ALUMNO ===================== */
+function renderDocumentos() {
+    var container = document.getElementById('lista-documentos');
+    if(!container) return;
+    container.innerHTML = '';
+    var docsGuardados = getDocsAlumno(SESSION_NC);
+    DOC_LISTA.forEach(function(doc){
+        var guardado = docsGuardados[doc.id] || null;
+        var estado   = guardado ? guardado.estado : null; // null | 'en_revision' | 'aprobado_admin' | 'aprobado_jefe' | 'rechazado'
+        var div = document.createElement('div');
+        div.className = 'doc-item' + (estado==='aprobado_jefe'?' doc-aprobado':estado==='rechazado'?' doc-rechazado':'');
+        var badgeHtml = '';
+        if(estado==='en_revision')    badgeHtml = '<span class="flujo-badge flujo-admin"><i class="fas fa-clock me-1"></i>En revisión</span>';
+        if(estado==='aprobado_admin') badgeHtml = '<span class="flujo-badge flujo-jefe"><i class="fas fa-check me-1"></i>Aprobado Admin</span>';
+        if(estado==='aprobado_jefe')  badgeHtml = '<span class="flujo-badge flujo-aprobado"><i class="fas fa-check-double me-1"></i>Aprobado ✓</span>';
+        if(estado==='rechazado')      badgeHtml = '<span class="flujo-badge flujo-rechazado"><i class="fas fa-times me-1"></i>Rechazado</span>';
+        if(estado==='rechazado_jefe') badgeHtml = '<span class="flujo-badge flujo-rechazado"><i class="fas fa-times me-1"></i>Rechazado por Jefe</span>';
+        var subirDisabled = (estado==='en_revision'||estado==='aprobado_admin'||estado==='aprobado_jefe') ? ' disabled style="opacity:0.5;cursor:default"' : '';
+        var motivoBtn = ((estado==='rechazado'||estado==='rechazado_jefe') && guardado && guardado.motivo)
+            ? '<button class="btn-ver-doc ms-1" onclick="verMotivoRechazo('+doc.id+')"><i class="fas fa-exclamation-circle me-1"></i>Ver motivo</button>'
+            : '';
+        div.innerHTML =
+            '<div class="doc-name"><i class="fas fa-file-alt"></i><span>'+doc.id+'. '+doc.nombre+'</span>'+badgeHtml+'</div>'+
+            '<div class="doc-actions">'+
+                '<a class="btn-dl" href="Servicio Social/'+encodeURIComponent(ARCHIVO_DESCARGA[doc.id])+'" download="'+ARCHIVO_DESCARGA[doc.id]+'"><i class="fas fa-download me-1"></i>Descargar</a>'+
+                '<button class="btn-up" onclick="subirDoc('+doc.id+')"'+subirDisabled+'><i class="fas fa-upload me-1"></i>Subir PDF</button>'+
+                motivoBtn+
+                '<i class="fas fa-check-circle doc-check'+(estado==='aprobado_jefe'?' checked':'')+'" id="check-doc-'+doc.id+'" title="'+(estado==='aprobado_jefe'?'Documento aprobado y sellado':'Pendiente')+'"></i>'+
+            '</div>';
+        container.appendChild(div);
+    });
+}
+
+function subirDoc(id) {
+    var docsGuardados = getDocsAlumno(SESSION_NC);
+    var doc = DOC_LISTA.find(function(d){ return d.id===id; });
+    var actual = docsGuardados[id];
+    if(actual && (actual.estado==='en_revision'||actual.estado==='aprobado_admin'||actual.estado==='aprobado_jefe')) return;
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.pdf,.doc,.docx';
+    input.onchange = function(){
+        if(input.files.length>0){
+            var file = input.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e){
+                setDocAlumno(SESSION_NC, id, {
+                    nombre:    doc.nombre,
+                    estado:    'en_revision',
+                    motivo:    '',
+                    fechaSubida: new Date().toLocaleDateString('es-MX'),
+                    fileName:  file.name,
+                    dataUrl:   e.target.result
+                });
+                renderDocumentos();
+                actualizarProgreso();
+                showToast('"'+doc.nombre+'" subido. En espera de revisión del administrador.','info');
+                // Refrescar admin si está abierto
+                if(!document.getElementById('screen-admin').classList.contains('d-none')){
+                    renderTablaAdmin();
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    input.click();
+}
+
+function verMotivoRechazo(docId) {
+    var docsGuardados = getDocsAlumno(SESSION_NC);
+    var d = docsGuardados[docId];
+    if(!d) return;
+    document.getElementById('ver-doc-titulo').innerHTML = '<i class="fas fa-exclamation-circle text-danger me-2"></i>Motivo de Rechazo';
+    document.getElementById('ver-doc-body').innerHTML =
+        '<p class="mb-1"><strong>Documento:</strong> '+d.nombre+'</p>'+
+        '<div class="alert alert-danger small">'+
+        '<i class="fas fa-times-circle me-2"></i>'+
+        '<strong>Motivo:</strong> '+(d.motivo||'Sin especificar')+
+        '</div>'+
+        '<p class="text-muted small">Puedes volver a subir el documento corregido.</p>';
+    new bootstrap.Modal(document.getElementById('modalVerDoc')).show();
+}
+
+/* ===================== PROGRESO AUTOMÁTICO ===================== */
+function actualizarProgreso() {
+    var docs = getDocsAlumno(SESSION_NC);
+    var aprobados = 0;
+    DOC_LISTA.forEach(function(d){
+        var g = docs[d.id];
+        if(g && g.estado === 'aprobado_jefe') aprobados++;
+    });
+    var total = DOC_LISTA.length;
+    var pct = Math.round((aprobados/total)*100);
+    var horas = 0;
+    if(aprobados>=9)      horas=500;
+    else if(aprobados>=7) horas=320;
+    else if(aprobados>=4) horas=160;
+    else                  horas=Math.round((aprobados/4)*159);
+
+    document.getElementById('pct-completado').textContent = pct+'%';
+    document.getElementById('progress-bar').style.width = pct+'%';
+
+    actualizarCardReporte('card-r1','status-r1', horas>=160);
+    actualizarCardReporte('card-r2','status-r2', horas>=320);
+    actualizarCardReporte('card-r3','status-r3', horas>=500);
+
+    var nota = document.getElementById('nota-progreso');
+    if(nota) nota.textContent = aprobados===0
+        ? 'Tu progreso se actualiza cuando el jefe aprueba tus documentos.'
+        : aprobados+' de '+total+' documentos aprobados y sellados.';
+}
+
+function actualizarCardReporte(cardId, statusId, ok) {
+    var card = document.getElementById(cardId); var status = document.getElementById(statusId);
+    if(!card||!status) return;
+    if(ok){ card.classList.add('done'); status.textContent='✓ Completado'; status.style.background='#d4edda'; status.style.color='#155724'; }
+    else  { card.classList.remove('done'); status.textContent='Pendiente'; status.style.background=''; status.style.color=''; }
+}
+
+/* ===================== CALENDARIO ===================== */
+var NOMBRES_MES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio'];
+var periodosEntrega = [
+    {mes:2, dias:[9,10,11,12,13],  label:'Entrega Reporte 1'},
+    {mes:4, dias:[11,12,13,14,15], label:'Entrega Reporte 2'},
+    {mes:6, dias:[13,14,15,16,17], label:'Entrega Reporte 3'},
+];
+
+// Fecha real actual: 26 de abril 2026 → mes 3 (abril, 0-indexed)
+var HOY_DIA = 26;
+var HOY_MES = 3; // abril
+
+var calMesActual = HOY_MES; // empieza en el mes actual real
+var CAL_MES_MIN  = 0;
+var CAL_MES_MAX  = 6;
+
+function renderCalendarioCompleto() { renderMes(calMesActual); }
+
+function calCambiarMes(delta) {
+    var nuevo = calMesActual + delta;
+    if(nuevo<CAL_MES_MIN||nuevo>CAL_MES_MAX) return;
+    calMesActual = nuevo;
+    renderMes(calMesActual);
+}
+
+function renderMes(mesIdx) {
+    var titulo = document.getElementById('cal-mes-titulo');
+    if(titulo) titulo.textContent = NOMBRES_MES[mesIdx]+' 2026';
+    var btnPrev = document.querySelector('[onclick="calCambiarMes(-1)"]');
+    var btnNext = document.querySelector('[onclick="calCambiarMes(1)"]');
+    if(btnPrev) btnPrev.disabled = (mesIdx<=CAL_MES_MIN);
+    if(btnNext) btnNext.disabled = (mesIdx>=CAL_MES_MAX);
+
+    var periodoMes = null;
+    for(var p=0;p<periodosEntrega.length;p++){ if(periodosEntrega[p].mes===mesIdx){ periodoMes=periodosEntrega[p]; break; } }
+
+    var container = document.getElementById('mini-calendar');
+    container.innerHTML = '';
+    var grid = document.createElement('div');
+    grid.className = 'cal-grid';
+
+    ['D','L','M','X','J','V','S'].forEach(function(d){ var dh=document.createElement('div'); dh.className='cal-day-header'; dh.textContent=d; grid.appendChild(dh); });
+
+    var primero  = new Date(2026, mesIdx, 1).getDay();
+    var diasMes  = new Date(2026, mesIdx+1, 0).getDate();
+
+    for(var b=0;b<primero;b++) grid.appendChild(document.createElement('div'));
+    for(var d=1;d<=diasMes;d++){
+        var cell = document.createElement('div');
+        cell.className = 'cal-day';
+        var esHoy     = (mesIdx===HOY_MES && d===HOY_DIA);
+        var esEntrega = periodoMes && periodoMes.dias.indexOf(d)!==-1;
+        if(esHoy)     cell.classList.add('today');
+        if(esEntrega) { cell.classList.add('entrega-periodo'); cell.title = periodoMes.label; }
+        cell.textContent = d;
+        grid.appendChild(cell);
+    }
+    container.appendChild(grid);
+    var nota = document.getElementById('cal-nota-entrega');
+    if(nota){
+        if(periodoMes){ nota.style.display='block'; nota.innerHTML='<i class="fas fa-calendar-check me-1"></i>'+periodoMes.label+': días '+periodoMes.dias[0]+'–'+periodoMes.dias[periodoMes.dias.length-1]; }
+        else           nota.style.display='none';
+    }
+}
+
+/* ===================== NOTIFICACIONES ===================== */
+function toggleNotifications() {
+    var panel = document.getElementById('notif-panel');
+    if(!panel) return;
+    panel.classList.toggle('d-none');
+    if(!panel.classList.contains('d-none')) document.getElementById('notif-count').textContent='0';
+}
+document.addEventListener('click', function(e){
+    var panel = document.getElementById('notif-panel');
+    if(panel&&!panel.classList.contains('d-none')){
+        if(!panel.contains(e.target)&&!e.target.closest('.notif-bell')) panel.classList.add('d-none');
+    }
+});
+
+/* ===================== PANEL ADMIN — TABLAS POR ÁREA ===================== */
+var rechazoDocKey = null;
+
+var AREA_NOMBRES = {tec_interno:'Tec Interno', tec_comunidad:'Tec en tu Comunidad', alfabetizatec:'AlfabetizaTec'};
+
+function renderTablasArea() {
+    ['tec_interno','tec_comunidad','alfabetizatec'].forEach(function(area){
+        renderTablaDeArea(area);
+    });
+}
+
+function renderTablaDeArea(area) {
+    var tbodyId = 'tbody-' + area.replace('_','-');
+    // fix ids that use hyphens
+    var tbodyEl = document.getElementById('tbody-'+area) || document.getElementById(tbodyId);
+    if(!tbodyEl) return;
+    tbodyEl.innerHTML = '';
+    var allDocs = getAllDocs();
+    var filas = [];
+    Object.keys(allDocs).forEach(function(nc){
+        var alumno = findAlumno(nc);
+        if(!alumno) return;
+        if((alumno.area||'tec_interno') !== area) return;
+        var nombreAlumno = alumno.nombre || nc;
+        Object.keys(allDocs[nc]).forEach(function(docId){
+            var d = allDocs[nc][docId];
+            filas.push({nc:nc, nombre:nombreAlumno, docId:parseInt(docId), doc:d});
+        });
+    });
+    if(filas.length===0){
+        tbodyEl.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4"><i class="fas fa-inbox fa-2x mb-2 d-block"></i>No hay documentos de alumnos en <strong>'+AREA_NOMBRES[area]+'</strong> aún.</td></tr>';
+        return;
+    }
+    filas.forEach(function(f){
+        var badgeCls = 'badge-revision';
+        var badgeLabel = 'En revisión';
+        if(f.doc.estado==='aprobado_admin') { badgeCls='badge-validado'; badgeLabel='Aprobado Admin'; }
+        if(f.doc.estado==='aprobado_jefe')  { badgeCls='badge-jefe'; badgeLabel='Aprobado Jefe'; }
+        if(f.doc.estado==='rechazado')      { badgeCls='badge-rechazado'; badgeLabel='Rechazado'; }
+        var puedActuar = (f.doc.estado==='en_revision');
+        var tr = document.createElement('tr');
+        tr.setAttribute('data-nombre', f.nombre.toLowerCase());
+        tr.setAttribute('data-estatus', badgeLabel);
+        tr.innerHTML =
+            '<td data-label="No. Control"><code>'+f.nc+'</code></td>'+
+            '<td data-label="Alumno" class="fw-semibold">'+f.nombre+'</td>'+
+            '<td data-label="Documento">'+f.doc.nombre+'</td>'+
+            '<td data-label="Fecha"><small>'+f.doc.fechaSubida+'</small></td>'+
+            '<td data-label="Estatus"><span class="badge-status '+badgeCls+'">'+badgeLabel+'</span></td>'+
+            '<td data-label="Acciones">'+
+                '<button class="btn-ver-doc me-1" onclick="verDocAdmin(\''+f.nc+'\','+f.docId+')"><i class="fas fa-eye me-1"></i>Ver</button>'+
+                (puedActuar ? '<button class="btn-aprobar me-1" onclick="aprobarDocAdmin(\''+f.nc+'\','+f.docId+',this)"><i class="fas fa-check me-1"></i>Aprobar</button>' : '')+
+                (puedActuar ? '<button class="btn-rechazar" onclick="abrirRechazoAdmin(\''+f.nc+'\','+f.docId+')"><i class="fas fa-times me-1"></i>Rechazar</button>' : '')+
+            '</td>';
+        tbodyEl.appendChild(tr);
+    });
+}
+
+// Keep alias for backward compat used in other places
+function renderTablaAdmin() { renderTablasArea(); }
+
+function filtrarTablaArea(area, v) {
+    var tbodyEl = document.getElementById('tbody-'+area);
+    if(!tbodyEl) return;
+    var val = v.toLowerCase();
+    tbodyEl.querySelectorAll('tr').forEach(function(tr){
+        var n = tr.getAttribute('data-nombre')||'';
+        tr.style.display = n.includes(val)?'':'none';
+    });
+}
+function filtrarEstatusArea(area, v) {
+    var tbodyEl = document.getElementById('tbody-'+area);
+    if(!tbodyEl) return;
+    tbodyEl.querySelectorAll('tr').forEach(function(tr){
+        var e = tr.getAttribute('data-estatus')||'';
+        tr.style.display = (!v||e===v)?'':'none';
+    });
+}
+// Legacy stubs
+function filtrarTablaAdmin(v) { filtrarTablaArea('tec_interno',v); }
+function filtrarEstatusAdmin(v) { filtrarEstatusArea('tec_interno',v); }
+
+function verDocAdmin(nc, docId) {
+    var docsAlumno = getDocsAlumno(nc);
+    var d = docsAlumno[docId];
+    if(!d) return;
+    var alumno = findAlumno(nc);
+    var nombre = alumno ? alumno.nombre : nc;
+    document.getElementById('admin-doc-title').innerHTML = '<i class="fas fa-file-pdf me-2"></i>'+d.nombre+' — '+nombre;
+    var body = document.getElementById('admin-doc-body');
+    var footer = document.getElementById('admin-doc-footer');
+    var previewHtml = '';
+    if(d.dataUrl && d.dataUrl.startsWith('data:application/pdf')){
+        previewHtml = '<iframe src="'+d.dataUrl+'" style="width:100%;height:400px;border-radius:8px;border:none;"></iframe>';
+    } else if(d.dataUrl && d.dataUrl.startsWith('data:image')){
+        previewHtml = '<img src="'+d.dataUrl+'" style="max-width:100%;border-radius:8px;">';
+    } else {
+        previewHtml = '<div class="text-center py-4 text-muted"><i class="fas fa-file-word fa-3x mb-3 d-block" style="color:#2b5797"></i><p>Archivo: <strong>'+(d.fileName||d.nombre)+'</strong></p><p class="small">Los archivos .doc/.docx no pueden previsualizarse en el navegador.<br>El documento fue subido correctamente.</p></div>';
+    }
+    body.innerHTML = '<div class="mb-3">'+previewHtml+'</div><div class="row g-2 small"><div class="col-6"><strong>Alumno:</strong> '+nombre+'</div><div class="col-6"><strong>No. Control:</strong> '+nc+'</div><div class="col-6"><strong>Documento:</strong> '+d.nombre+'</div><div class="col-6"><strong>Subido:</strong> '+d.fechaSubida+'</div><div class="col-12"><strong>Estado:</strong> '+d.estado+'</div></div>';
+    footer.innerHTML = (d.estado==='en_revision')
+        ? '<button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button><button class="btn-rechazar me-2" onclick="abrirRechazoAdmin(\''+nc+'\','+docId+');bootstrap.Modal.getInstance(document.getElementById(\'modalVerDocAdmin\')).hide()"><i class="fas fa-times me-1"></i>Rechazar</button><button class="btn-aprobar" onclick="aprobarDocAdmin(\''+nc+'\','+docId+',this);bootstrap.Modal.getInstance(document.getElementById(\'modalVerDocAdmin\')).hide()"><i class="fas fa-check me-1"></i>Aprobar y enviar al Jefe</button>'
+        : '<button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>';
+    new bootstrap.Modal(document.getElementById('modalVerDocAdmin')).show();
+}
+
+function aprobarDocAdmin(nc, docId, btn) {
+    var all = getAllDocs();
+    if(!all[nc]||!all[nc][docId]) { showToast('Error: documento no encontrado.','danger'); return; }
+    all[nc][docId].estado = 'aprobado_admin';
+    dbSetObj(DB_DOCS, all);
+    // Feedback visual en el botón si se pasó
+    if(btn){ btn.disabled=true; btn.innerHTML='<i class="fas fa-check-double me-1"></i>Enviado al Jefe'; btn.style.background='#28a745'; }
+    showToast('✅ Documento aprobado y enviado al Jefe de Departamento.','success');
+    renderTablasArea();
+    if(!document.getElementById('screen-jefe').classList.contains('d-none')) renderListaJefe();
+    if(!document.getElementById('screen-alumno').classList.contains('d-none')){ renderDocumentos(); actualizarProgreso(); }
+}
+
+function abrirRechazoAdmin(nc, docId) {
+    rechazoDocKey = {nc:nc, docId:docId};
+    document.getElementById('rechazo-texto').value = '';
+    new bootstrap.Modal(document.getElementById('modalRechazo')).show();
+}
+
+document.getElementById('btn-confirmar-rechazo').addEventListener('click', function(){
+    var motivo = document.getElementById('rechazo-texto').value.trim();
+    if(!motivo){ showToast('Escribe un motivo de rechazo.','danger'); return; }
+    bootstrap.Modal.getInstance(document.getElementById('modalRechazo')).hide();
+    if(!rechazoDocKey) return;
+    var all = getAllDocs();
+    if(all[rechazoDocKey.nc]&&all[rechazoDocKey.nc][rechazoDocKey.docId]){
+        all[rechazoDocKey.nc][rechazoDocKey.docId].estado = 'rechazado';
+        all[rechazoDocKey.nc][rechazoDocKey.docId].motivo = motivo;
+        dbSetObj(DB_DOCS, all);
+    }
+    showToast('Documento rechazado. El alumno verá el motivo.','danger');
+    renderTablasArea();
+    if(!document.getElementById('screen-alumno').classList.contains('d-none')) renderDocumentos();
+});
+
+/* ---- BD ALUMNOS ---- */
+function renderBD() {
+    var tbody  = document.getElementById('tbody-bd');
+    var total  = document.getElementById('bd-total');
+    if(!tbody) return;
+    var alumnos = getAlumnos();
+    if(total) total.textContent = alumnos.length+' alumno(s) registrado(s)';
+    tbody.innerHTML = '';
+    if(alumnos.length===0){ tbody.innerHTML='<tr><td colspan="6" class="text-center text-muted py-4">No hay alumnos registrados aún.</td></tr>'; return; }
+    var areaBadge = {tec_interno:'<span class="badge" style="background:#dbeafe;color:#1d4ed8">Tec Interno</span>', tec_comunidad:'<span class="badge" style="background:#d1fae5;color:#065f46">Tec Comunidad</span>', alfabetizatec:'<span class="badge" style="background:#ede9fe;color:#5b21b6">AlfabetizaTec</span>'};
+    alumnos.forEach(function(a){
+        var tr = document.createElement('tr');
+        tr.setAttribute('data-buscar', (a.nc+' '+(a.nombre||'')).toLowerCase());
+        tr.innerHTML='<td data-label="No. Control"><code>'+a.nc+'</code></td><td data-label="Nombre" class="fw-semibold">'+(a.nombre||'—')+'</td><td data-label="Correo"><small>'+(a.correo||'—')+'</small></td><td data-label="Carrera"><small>'+(a.carrera||'—')+'</small></td><td data-label="Área">'+(areaBadge[a.area]||'<span class="text-muted small">—</span>')+'</td><td data-label="Registro"><small>'+(a.fechaRegistro||'—')+'</small></td>';
+        tbody.appendChild(tr);
+    });
+}
+function filtrarBD(v) {
+    var val = v.toLowerCase();
+    document.querySelectorAll('#tbody-bd tr').forEach(function(tr){
+        var d=tr.getAttribute('data-buscar')||'';
+        tr.style.display=d.includes(val)?'':'none';
+    });
+}
+
+/* ===================== PANEL JEFE ===================== */
+var docSelJefe = null;
+var jefeTabActual = 'pendientes';
+
+var AREA_NOMBRES_JEFE = {tec_interno:'Tec Interno', tec_comunidad:'Tec en tu Comunidad', alfabetizatec:'AlfabetizaTec'};
+
+function getDocsPorAreaJefe(estado) {
+    var allDocs = getAllDocs();
+    var resultado = [];
+    Object.keys(allDocs).forEach(function(nc){
+        var alumno = findAlumno(nc);
+        if(!alumno) return;
+        // Filtrar solo por el área del jefe logueado
+        if(SESSION_JEFE_AREA && (alumno.area||'tec_interno') !== SESSION_JEFE_AREA) return;
+        var nombre = alumno.nombre || nc;
+        Object.keys(allDocs[nc]).forEach(function(docId){
+            var d = allDocs[nc][docId];
+            var incluir = false;
+            if(estado==='pendientes' && d.estado==='aprobado_admin') incluir=true;
+            if(estado==='aprobados'  && d.estado==='aprobado_jefe')  incluir=true;
+            if(estado==='rechazados' && d.estado==='rechazado_jefe') incluir=true;
+            if(incluir) resultado.push({nc:nc, nombre:nombre, docId:parseInt(docId), doc:d});
+        });
+    });
+    return resultado;
+}
+
+function actualizarContadoresJefe() {
+    var pendientes  = getDocsPorAreaJefe('pendientes').length;
+    var aprobados   = getDocsPorAreaJefe('aprobados').length;
+    var rechazados  = getDocsPorAreaJefe('rechazados').length;
+    var elP = document.getElementById('cnt-pendientes-jefe');
+    var elA = document.getElementById('cnt-aprobados-jefe');
+    var elR = document.getElementById('cnt-rechazados-jefe');
+    if(elP) elP.textContent = pendientes;
+    if(elA) elA.textContent = aprobados;
+    if(elR) elR.textContent = rechazados;
+}
+
+function cambiarTabJefe(tab, btnEl) {
+    jefeTabActual = tab;
+    document.querySelectorAll('#jefeTabs .nav-link').forEach(function(b){ b.classList.remove('active'); });
+    if(btnEl) btnEl.classList.add('active');
+    var titulos = {
+        pendientes: {titulo:'Pendientes de Firma', sub:'Documentos pre-aprobados por administración'},
+        aprobados:  {titulo:'Documentos Aprobados', sub:'Documentos firmados y sellados por el jefe'},
+        rechazados: {titulo:'Documentos Rechazados', sub:'Documentos que requieren corrección del alumno'}
+    };
+    document.getElementById('jefe-lista-titulo').innerHTML = '<i class="fas fa-list-check me-2"></i>'+titulos[tab].titulo;
+    document.getElementById('jefe-lista-sub').textContent = titulos[tab].sub;
+    // Limpiar visualizador al cambiar tab
+    document.getElementById('doc-preview').innerHTML =
+        '<div class="d-flex flex-column align-items-center justify-content-center" style="min-height:340px;color:var(--text-muted);"><i class="fas fa-file-alt fa-3x mb-3"></i><span>Selecciona un documento de la lista</span></div>';
+    document.getElementById('jefe-acciones-panel').classList.add('d-none');
+    docSelJefe = null;
+    renderListaJefe();
+}
+
+function renderListaJefe() {
+    var container = document.getElementById('lista-espera-jefe');
+    if(!container) return;
+    container.innerHTML = '';
+    var items = getDocsPorAreaJefe(jefeTabActual);
+    if(items.length===0){
+        var msgs = {
+            pendientes: '<i class="fas fa-check-circle fa-2x text-success mb-2 d-block"></i>No hay documentos pendientes de firma.',
+            aprobados:  '<i class="fas fa-inbox fa-2x mb-2 d-block"></i>No hay documentos aprobados aún.',
+            rechazados: '<i class="fas fa-inbox fa-2x mb-2 d-block"></i>No hay documentos rechazados.'
+        };
+        container.innerHTML = '<div class="text-center text-muted py-4">'+msgs[jefeTabActual]+'</div>';
+        return;
+    }
+    items.forEach(function(item){
+        var div = document.createElement('div');
+        div.className = 'lista-espera-item';
+        // Color según tab
+        var iconColor = jefeTabActual==='aprobados' ? 'text-success' : jefeTabActual==='rechazados' ? 'text-danger' : 'text-warning';
+        var iconCls   = jefeTabActual==='aprobados' ? 'fa-check-double' : jefeTabActual==='rechazados' ? 'fa-times-circle' : 'fa-clock';
+        div.innerHTML =
+            '<div class="d-flex align-items-center gap-2 flex-1" style="min-width:0">'+
+                '<i class="fas '+iconCls+' '+iconColor+'" style="flex-shrink:0"></i>'+
+                '<div style="min-width:0">'+
+                    '<div class="doc-info text-truncate">'+item.nombre+'</div>'+
+                    '<div class="doc-type">'+item.doc.nombre+' · <code>'+item.nc+'</code></div>'+
+                '</div>'+
+            '</div>'+
+            '<i class="fas fa-chevron-right text-muted ms-2" style="flex-shrink:0"></i>';
+        div.addEventListener('click', function(){ seleccionarDocJefe(item, div); });
+        container.appendChild(div);
+    });
+}
+
+function seleccionarDocJefe(item, el) {
+    docSelJefe = item;
+    document.querySelectorAll('.lista-espera-item').forEach(function(d){ d.classList.remove('selected'); });
+    el.classList.add('selected');
+
+    var previewHtml = '';
+    if(item.doc.dataUrl && item.doc.dataUrl.startsWith('data:application/pdf')){
+        previewHtml = '<iframe src="'+item.doc.dataUrl+'" style="width:100%;height:520px;border:none;display:block;" allowfullscreen></iframe>';
+    } else if(item.doc.dataUrl && item.doc.dataUrl.startsWith('data:image')){
+        previewHtml = '<div style="padding:16px;"><img src="'+item.doc.dataUrl+'" style="max-width:100%;border-radius:8px;display:block;margin:0 auto;"></div>';
+    } else {
+        previewHtml = '<div class="text-center py-5 text-muted"><i class="fas fa-file-word fa-3x mb-3 d-block" style="color:#2b5797"></i><p><strong>'+(item.doc.fileName||item.doc.nombre)+'</strong></p><p class="small">Archivo .doc/.docx recibido correctamente.<br>Pre-aprobado por administración.</p></div>';
+    }
+
+    var estadoBadge = {
+        aprobado_admin: '<span class="badge bg-warning text-dark">Pre-aprobado por Admin — Pendiente de firma</span>',
+        aprobado_jefe:  '<span class="badge bg-success">✓ Aprobado y Sellado por Jefe</span>',
+        rechazado_jefe: '<span class="badge bg-danger">✗ Rechazado por Jefe</span>'
+    }[item.doc.estado] || '';
+
+    document.getElementById('doc-preview').innerHTML =
+        '<div style="background:white;border-radius:8px;overflow:hidden;">' +
+            '<div style="padding:14px 16px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:12px;">' +
+                '<img src="logo-tecnm.png" style="height:34px;" alt="TecNM" onerror="this.style.display=\'none\'">' +
+                '<div><div style="font-weight:700;font-size:0.88rem;color:var(--blue-dark)">TECNM CAMPUS MINATITLÁN</div><div style="font-size:0.75rem;color:#888;">'+item.doc.nombre+'</div></div>' +
+                '<div style="margin-left:auto;">'+estadoBadge+'</div>' +
+            '</div>' +
+            '<div style="padding:10px 16px;display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:0.82rem;border-bottom:1px solid #f0f0f0;background:#fafafa;">' +
+                '<div><strong>Alumno:</strong> '+item.nombre+'</div>' +
+                '<div><strong>No. Control:</strong> <code>'+item.nc+'</code></div>' +
+                '<div><strong>Documento:</strong> '+item.doc.nombre+'</div>' +
+                '<div><strong>Subido:</strong> '+item.doc.fechaSubida+'</div>' +
+            '</div>' +
+            previewHtml +
+        '</div>';
+
+    var accionesPanel = document.getElementById('jefe-acciones-panel');
+    if(jefeTabActual === 'pendientes') {
+        accionesPanel.classList.remove('d-none');
+        var bAprob = document.getElementById('btn-aprobar-jefe');
+        var bRech  = document.getElementById('btn-rechazar-jefe');
+        if(bAprob) bAprob.disabled = false;
+        if(bRech)  bRech.disabled  = false;
+    } else {
+        accionesPanel.classList.add('d-none');
+    }
+}
+
+function abrirFirmaAprobacion() {
+    if(!docSelJefe){ showToast('Selecciona un documento primero.','danger'); return; }
+    // Ver si el jefe ya tiene firma guardada
+    var firmaGuardada = localStorage.getItem('siss_firma_jefe_'+SESSION_JEFE_AREA);
+    var panelGuardada = document.getElementById('firma-guardada-panel');
+    var panelNueva    = document.getElementById('firma-nueva-panel');
+    if(firmaGuardada) {
+        document.getElementById('firma-guardada-img').src = firmaGuardada;
+        panelGuardada.classList.remove('d-none');
+        panelNueva.classList.add('d-none');
+    } else {
+        panelGuardada.classList.add('d-none');
+        panelNueva.classList.remove('d-none');
+        setTimeout(initFirmaCanvas, 100);
+    }
+    new bootstrap.Modal(document.getElementById('modalFirmaJefe')).show();
+}
+
+function mostrarNuevaFirma() {
+    document.getElementById('firma-guardada-panel').classList.add('d-none');
+    document.getElementById('firma-nueva-panel').classList.remove('d-none');
+    setTimeout(initFirmaCanvas, 100);
+}
+
+function usarFirmaGuardada() {
+    // Aprobar usando la firma guardada directamente
+    sellarYAprobar();
+    bootstrap.Modal.getInstance(document.getElementById('modalFirmaJefe')).hide();
+}
+
+function confirmarFirmaYAprobar() {
+    // Verificar que haya firma dibujada
+    var canvas = document.getElementById('firma-canvas');
+    var panelNueva = document.getElementById('firma-nueva-panel');
+    if(!panelNueva.classList.contains('d-none')) {
+        // Está en modo dibujar firma
+        if(!canvas||!firmaCtx){ showToast('Error al leer la firma.','danger'); return; }
+        var data = firmaCtx.getImageData(0,0,canvas.width,canvas.height).data;
+        var hasFirma = false;
+        for(var i=0;i<data.length;i++){ if(data[i]!==0){ hasFirma=true; break; } }
+        if(!hasFirma){ showToast('Dibuja tu firma antes de continuar.','danger'); return; }
+        // Guardar la firma para futuras sesiones
+        var firmaDataUrl = canvas.toDataURL('image/png');
+        localStorage.setItem('siss_firma_jefe_'+SESSION_JEFE_AREA, firmaDataUrl);
+    }
+    bootstrap.Modal.getInstance(document.getElementById('modalFirmaJefe')).hide();
+    sellarYAprobar();
+}
+
+function sellarYAprobar() {
+    if(!docSelJefe){ showToast('Selecciona un documento primero.','danger'); return; }
+    var all = getAllDocs();
+    if(all[docSelJefe.nc]&&all[docSelJefe.nc][docSelJefe.docId]){
+        all[docSelJefe.nc][docSelJefe.docId].estado = 'aprobado_jefe';
+        dbSetObj(DB_DOCS, all);
+    }
+    var codigo = 'SISS-'+Math.random().toString(36).substr(2,8).toUpperCase();
+    showToast('✅ Documento firmado y sellado. Código: '+codigo,'success');
+
+    var bAprob = document.getElementById('btn-aprobar-jefe');
+    var bRech  = document.getElementById('btn-rechazar-jefe');
+    if(bAprob){ bAprob.innerHTML='<i class="fas fa-check-double me-2"></i>¡Aprobado y Sellado!'; bAprob.disabled=true; bAprob.style.background='var(--success)'; }
+    if(bRech)  bRech.disabled = true;
+
+    if(!document.getElementById('screen-alumno').classList.contains('d-none')){ renderDocumentos(); actualizarProgreso(); }
+    if(!document.getElementById('screen-admin').classList.contains('d-none'))  renderTablaAdmin();
+    actualizarContadoresJefe();
+    setTimeout(function(){
+        var sel = document.querySelector('.lista-espera-item.selected');
+        if(sel){ sel.style.transition='opacity 0.3s'; sel.style.opacity='0'; setTimeout(function(){ sel.remove(); renderListaJefe(); docSelJefe=null; },400); }
+    }, 1800);
+}
+
+// Mantener alias para compatibilidad
+function aprobarDocJefe() { abrirFirmaAprobacion(); }
+
+function abrirRechazoJefe() {
+    if(!docSelJefe){ showToast('Selecciona un documento primero.','danger'); return; }
+    document.getElementById('rechazo-jefe-texto').value = '';
+    new bootstrap.Modal(document.getElementById('modalRechazoJefe')).show();
+}
+
+function confirmarRechazoJefe() {
+    if(!docSelJefe) return;
+    var motivo = document.getElementById('rechazo-jefe-texto').value.trim();
+    if(!motivo){ showToast('Escribe el motivo del rechazo.','danger'); return; }
+    var all = getAllDocs();
+    if(all[docSelJefe.nc] && all[docSelJefe.nc][docSelJefe.docId]){
+        all[docSelJefe.nc][docSelJefe.docId].estado = 'rechazado_jefe';
+        all[docSelJefe.nc][docSelJefe.docId].motivo = motivo;
+        dbSetObj(DB_DOCS, all);
+    }
+    bootstrap.Modal.getInstance(document.getElementById('modalRechazoJefe')).hide();
+    showToast('Documento rechazado. El alumno podrá ver el motivo.','warning');
+    docSelJefe = null;
+    document.getElementById('doc-preview').innerHTML =
+        '<div class="d-flex flex-column align-items-center justify-content-center" style="min-height:340px;color:var(--text-muted);"><i class="fas fa-file-alt fa-3x mb-3"></i><span>Selecciona un documento de la lista</span></div>';
+    document.getElementById('jefe-acciones-panel').classList.add('d-none');
+    actualizarContadoresJefe();
+    renderListaJefe();
+    if(!document.getElementById('screen-alumno').classList.contains('d-none')){ renderDocumentos(); actualizarProgreso(); }
+    if(!document.getElementById('screen-admin').classList.contains('d-none'))  renderTablasArea();
+}
+
+/* ===================== FIRMA CANVAS ===================== */
+var isDrawing = false, firmaCtx = null;
+function initFirmaCanvas() {
+    var canvas = document.getElementById('firma-canvas');
+    if(!canvas) return;
+    firmaCtx = canvas.getContext('2d');
+    firmaCtx.clearRect(0,0,canvas.width,canvas.height);
+    firmaCtx.strokeStyle='#1b396a'; firmaCtx.lineWidth=2; firmaCtx.lineCap='round';
+    canvas.onmousedown  = function(e){ isDrawing=true; firmaCtx.beginPath(); firmaCtx.moveTo(getPos(e,canvas).x,getPos(e,canvas).y); };
+    canvas.onmousemove  = function(e){ if(!isDrawing)return; firmaCtx.lineTo(getPos(e,canvas).x,getPos(e,canvas).y); firmaCtx.stroke(); };
+    canvas.onmouseup    = function(){ isDrawing=false; };
+    canvas.onmouseleave = function(){ isDrawing=false; };
+    canvas.ontouchstart = function(e){ e.preventDefault(); isDrawing=true; firmaCtx.beginPath(); var t=e.touches[0]; firmaCtx.moveTo(getPos(t,canvas).x,getPos(t,canvas).y); };
+    canvas.ontouchmove  = function(e){ e.preventDefault(); if(!isDrawing)return; var t=e.touches[0]; firmaCtx.lineTo(getPos(t,canvas).x,getPos(t,canvas).y); firmaCtx.stroke(); };
+    canvas.ontouchend   = function(){ isDrawing=false; };
+}
+function getPos(e,canvas){ var r=canvas.getBoundingClientRect(); return {x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)}; }
+function clearFirma()     { var c=document.getElementById('firma-canvas'); if(firmaCtx&&c) firmaCtx.clearRect(0,0,c.width,c.height); }
+
+function firmarDocumento() {
+    var canvas = document.getElementById('firma-canvas');
+    if(!canvas||!firmaCtx) return;
+    var data = firmaCtx.getImageData(0,0,canvas.width,canvas.height).data;
+    var hasFirma = false;
+    for(var i=0;i<data.length;i++){ if(data[i]!==0){ hasFirma=true; break; } }
+    if(!hasFirma){ showToast('Por favor dibuja tu firma antes de sellar.','danger'); return; }
+    if(!docSelJefe){ showToast('Selecciona un documento primero.','danger'); return; }
+
+    // Marcar como aprobado_jefe
+    var all = getAllDocs();
+    if(all[docSelJefe.nc]&&all[docSelJefe.nc][docSelJefe.docId]){
+        all[docSelJefe.nc][docSelJefe.docId].estado = 'aprobado_jefe';
+        dbSetObj(DB_DOCS, all);
+    }
+
+    var codigo = 'SISS-'+Math.random().toString(36).substr(2,8).toUpperCase();
+    document.getElementById('qr-display').innerHTML =
+        '<div style="background:white;padding:8px;border-radius:6px;border:1px solid #dee2e6;">'+
+            '<svg viewBox="0 0 60 60" width="80" xmlns="http://www.w3.org/2000/svg">'+generarQRSVG()+'</svg>'+
+            '<div style="font-size:0.6rem;word-break:break-all;color:#555;margin-top:4px">'+codigo+'</div>'+
+        '</div>';
+    showToast('Documento firmado y sellado. Código: '+codigo,'success');
+    var btn = document.getElementById('btn-firmar');
+    btn.innerHTML = '<i class="fas fa-check-double me-2"></i>¡Documento Firmado y Sellado!';
+    btn.style.background = 'var(--success)'; btn.disabled = true;
+    var bAprob = document.getElementById('btn-aprobar-jefe');
+    var bRech  = document.getElementById('btn-rechazar-jefe');
+    if(bAprob) bAprob.disabled = true;
+    if(bRech)  bRech.disabled  = true;
+
+    // Actualizar vistas
+    if(!document.getElementById('screen-alumno').classList.contains('d-none')){ renderDocumentos(); actualizarProgreso(); }
+    if(!document.getElementById('screen-admin').classList.contains('d-none'))  renderTablaAdmin();
+    actualizarContadoresJefe();
+
+    setTimeout(function(){
+        var sel = document.querySelector('.lista-espera-item.selected');
+        if(sel){ sel.style.transition='opacity 0.3s'; sel.style.opacity='0'; setTimeout(function(){ sel.remove(); renderListaJefe(); },400); }
+    }, 1800);
+}
+
+function generarQRSVG() {
+    var pat=[[1,1,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,1],[1,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,1],[1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1],[1,0,1,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,1,0,1],[1,0,1,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,1,0,1],[1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1],[1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1]];
+    var svg='';
+    for(var r=0;r<7;r++) for(var c=0;c<21;c++) if(pat[r][c]) svg+='<rect x="'+(c*2.85)+'" y="'+(r*2.85)+'" width="2.85" height="2.85" fill="#1b396a"/>';
+    for(var r=8;r<20;r++) for(var c=0;c<21;c++) if(Math.random()>0.5) svg+='<rect x="'+(c*2.85)+'" y="'+(r*2.85)+'" width="2.85" height="2.85" fill="#1b396a"/>';
+    return svg;
+}
+
+/* ===================== BUZÓN / ASISTENTE VIRTUAL ===================== */
+var chatHistory = [];
+
+function abrirBuzon() {
+    // Cerrar sidebar si está abierto
+    var offcanvas = document.getElementById('sidebarAlumno');
+    if(offcanvas) { var bsOff = bootstrap.Offcanvas.getInstance(offcanvas); if(bsOff) bsOff.hide(); }
+    new bootstrap.Modal(document.getElementById('modalBuzon')).show();
+}
+
+function agregarMensajeChat(texto, rol) {
+    var container = document.getElementById('chat-messages');
+    if(!container) return;
+    var isBot = (rol === 'assistant');
+    var div = document.createElement('div');
+    div.className = 'd-flex gap-2 align-items-start' + (isBot ? '' : ' flex-row-reverse');
+    var avatar = isBot
+        ? '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-robot text-white" style="font-size:0.8rem;"></i></div>'
+        : '<div style="width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:white;font-size:0.85rem;">'+((SESSION_NC||'A').charAt(0).toUpperCase())+'</div>';
+    var bubble = isBot
+        ? '<div style="background:white;border-radius:12px 12px 12px 0;padding:12px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);max-width:85%;font-size:0.88rem;">'+texto+'</div>'
+        : '<div style="background:var(--blue-dark);color:white;border-radius:12px 12px 0 12px;padding:12px 16px;max-width:85%;font-size:0.88rem;">'+texto+'</div>';
+    div.innerHTML = avatar + bubble;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function agregarTyping() {
+    var container = document.getElementById('chat-messages');
+    var div = document.createElement('div');
+    div.className = 'd-flex gap-2 align-items-start';
+    div.id = 'chat-typing';
+    div.innerHTML =
+        '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-robot text-white" style="font-size:0.8rem;"></i></div>'+
+        '<div style="background:white;border-radius:12px 12px 12px 0;padding:12px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);font-size:0.88rem;">'+
+            '<span style="display:inline-flex;gap:4px;align-items:center;">'+
+                '<span style="width:7px;height:7px;background:#aaa;border-radius:50%;animation:blink 1.2s infinite 0s"></span>'+
+                '<span style="width:7px;height:7px;background:#aaa;border-radius:50%;animation:blink 1.2s infinite 0.3s"></span>'+
+                '<span style="width:7px;height:7px;background:#aaa;border-radius:50%;animation:blink 1.2s infinite 0.6s"></span>'+
+            '</span>'+
+        '</div>';
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+// Inject typing animation CSS once
+(function(){
+    var s = document.createElement('style');
+    s.textContent = '@keyframes blink{0%,80%,100%{opacity:0.2}40%{opacity:1}}';
+    document.head.appendChild(s);
+})();
+
+async function enviarMensajeChat() {
+    var input = document.getElementById('chat-input');
+    var texto = input.value.trim();
+    if(!texto) return;
+    input.value = '';
+    input.disabled = true;
+
+    // Get alumno info for context
+    var alumno = findAlumno(SESSION_NC) || {};
+    var areaNombres = {tec_interno:'Tec Interno', tec_comunidad:'Tec en tu Comunidad', alfabetizatec:'AlfabetizaTec'};
+    var areaAlumno = areaNombres[alumno.area] || 'No asignada';
+
+    chatHistory.push({role:'user', content: texto});
+    agregarMensajeChat(texto, 'user');
+    agregarTyping();
+
+    var systemPrompt = 'Eres el asistente virtual de SISS-Mina, el Sistema Integral de Seguimiento y Gestión Digital de Servicio Social del TecNM Campus Minatitlán. Tu función es ayudar a los alumnos con dudas sobre su servicio social: documentos requeridos (datos del alumno, carta de asignación, tarjeta de control, carta de compromiso, solicitud, plan de trabajo, reportes bimestrales, evaluación de actividades, carta de terminación), plazos de entrega (Reporte 1: 9-13 marzo, Reporte 2: 11-15 mayo, Reporte 3: 13-17 julio), áreas de servicio (Tec Interno, Tec en tu Comunidad, AlfabetizaTec), proceso de aprobación (alumno sube → admin aprueba → jefe firma y sella), y cualquier duda general. Responde siempre en español, de forma amable, concisa y profesional. El alumno actual es: '+( alumno.nombre||'No identificado')+', No. Control: '+(SESSION_NC||'—')+', Área de servicio: '+areaAlumno+'. Si no sabes algo específico del sistema, orienta al alumno a contactar directamente a administración.';
+
+    try {
+        var response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 400,
+                system: systemPrompt,
+                messages: chatHistory
+            })
+        });
+        var data = await response.json();
+        var respuesta = (data.content && data.content[0] && data.content[0].text)
+            ? data.content[0].text
+            : 'Lo siento, no pude procesar tu pregunta. Intenta de nuevo o contacta a administración.';
+        chatHistory.push({role:'assistant', content: respuesta});
+        var typing = document.getElementById('chat-typing');
+        if(typing) typing.remove();
+        agregarMensajeChat(respuesta, 'assistant');
+    } catch(err) {
+        var typing = document.getElementById('chat-typing');
+        if(typing) typing.remove();
+        agregarMensajeChat('Hubo un problema de conexión. Intenta de nuevo en un momento.', 'assistant');
+    }
+    input.disabled = false;
+    input.focus();
+}
+</script>
+</body>
+</html>
